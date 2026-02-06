@@ -1,4 +1,8 @@
-# Ignore the virtual environment folder
+# Virtual environment
 venv/
+
+# Environment variables
 .env
-.pdf
+
+# PDFs
+*.pdf
