@@ -186,8 +186,4 @@ The frontend **must** send the current user state with every request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-```
-
-```
+This project is licensed under the MIT License
