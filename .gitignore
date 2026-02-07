@@ -1,8 +1,15 @@
 # Virtual environment
 venv/
+RAG_Knowledge_Base/
 
 # Environment variables
 .env
 
 # PDFs
 *.pdf
+
+# document 
+*.docx
+
+# json files
+*.json
