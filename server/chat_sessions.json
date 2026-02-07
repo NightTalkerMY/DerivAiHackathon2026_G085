@@ -1,0 +1,20 @@
+{
+  "william": [
+    {
+      "role": "user",
+      "text": "REFERENCE CONTEXT:\nFigure 4.2 shows a sample set of goals from a trading plan. Goals are individual and will vary widely between traders. It is important that you set goals that are achievable rather than impossible.\n\nUSER QUESTION:\nWhy is a trading plan important?"
+    },
+    {
+      "role": "model",
+      "text": "A trading plan is the compass that guides your ship through the unpredictable seas of the market. Without it, you're adrift. It sets your course, defines your objectives, and ensures you don't get lost in the fog of emotion. Remember, achievable goals are the sturdy anchors that keep you grounded, especially when the waves get rough. Your current win rate suggests we need to reinforce that discipline."
+    },
+    {
+      "role": "user",
+      "text": "REFERENCE CONTEXT:\nFigure 4.2 shows a sample set of goals from a trading plan. Goals are individual and will vary widely between traders. It is important that you set goals that are achievable rather than impossible.\n\nUSER QUESTION:\nWhy is a trading plan important?"
+    },
+    {
+      "role": "model",
+      "text": "A trading plan is the compass that guides your ship through the unpredictable seas of the market. Without it, you're adrift. It sets your course, defines your objectives, and ensures you don't get lost in the fog of emotion. Remember, achievable goals are the sturdy anchors that keep you grounded, especially when the waves get rough. Your current win rate suggests we need to reinforce that discipline."
+    }
+  ]
+}
