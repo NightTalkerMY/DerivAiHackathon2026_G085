@@ -1,6 +1,11 @@
 # The Adaptive Trading Dojo - AI Trading Mentor Backend
 
-![Python Version](https://img.shields.io/badge/python-3.10.11-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-green) ![AI Model](https://img.shields.io/badge/Model-Gemini%202.0%20Flash-orange)
+![Python](https://img.shields.io/badge/Python-3.10.11-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-009688?style=flat&logo=fastapi&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/AI_Brain-Gemini_2.5_Flash_Lite-4285F4?style=flat&logo=google&logoColor=white)
+![Groq](https://img.shields.io/badge/AI_Router-Groq_OSS_120B-f55036?style=flat)
+![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-cc2b5e?style=flat)
+![RAG](https://img.shields.io/badge/Architecture-Hybrid_RAG-orange?style=flat)
 
 **The Adaptive Trading Dojo** is an intelligent, persona-driven backend for an AI trading mentor. Unlike standard chatbots, this system features a **Semantic Routing architecture** that differentiates between casual chitchat, off-topic queries, and deep technical questions requiring **Retrieval-Augmented Generation (RAG)**.
 
