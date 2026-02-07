@@ -1,14 +1,13 @@
 {
   "william": {
-    "current_chapter": "1. Psychology",
+    "current_chapter": "2. Risk Management",
     "finished_chapters": [
-      "Introduction",
-      "Risk Management"
+      "1. Psychology"
     ],
     "unfinished_chapters": [
-      "Technical Analysis"
+      "3. Technical Analysis"
     ],
-    "win_rate": "1%"
+    "win_rate": "45%"
   },
   "alex_trader": {
     "current_chapter": "Advanced Charts",
