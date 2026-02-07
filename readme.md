@@ -1,4 +1,3 @@
-```markdown
 # The Adaptive Trading Dojo - AI Trading Mentor Backend
 
 ![Python Version](https://img.shields.io/badge/python-3.10.11-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-green) ![AI Model](https://img.shields.io/badge/Model-Gemini%202.0%20Flash-orange)
