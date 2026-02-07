@@ -1,7 +1,3 @@
-Here is the **complete, fixed, and verified** Markdown file. I have fixed the broken code blocks and separated the `.env` configuration into its own section.
-
-You can copy the entire block below and paste it into `README.md`.
-
 ```markdown
 # The Adaptive Trading Dojo - AI Trading Mentor Backend
 
