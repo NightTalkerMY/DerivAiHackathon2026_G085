@@ -1,93 +1,184 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <style>
-      body { font-family: Arial, sans-serif; margin: 24px; }
-      .grid { display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 16px; }
-      .card { border: 1px solid #ddd; border-radius: 12px; padding: 14px; }
-      .sym { font-size: 18px; font-weight: 700; }
-      .price { font-size: 32px; margin-top: 6px; }
-      pre { background:#f6f6f6; padding:10px; border-radius:10px; max-height:180px; overflow:auto; }
-      .status { margin-bottom: 12px; color: #666; }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>Trade Simulator (Plain HTML)</title>
+  <style>
+    body { font-family: Arial; margin: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .card { border: 1px solid #ccc; border-radius: 10px; padding: 12px; }
+    .price { font-size: 28px; margin: 8px 0; }
+    button { margin-right: 6px; }
+    .open { color: green; }
+    pre { background:#f6f6f6; padding:8px; border-radius:8px; overflow:auto; }
+    .row { display:flex; align-items:center; gap:10px; margin: 8px 0; }
+    input[type="number"] { width: 120px; padding: 6px; }
+    .hint { color:#666; font-size:12px; margin-top:6px; }
+    .history { max-height: 220px; } /* scroll area so 100 lines won't explode page */
+  </style>
+</head>
 
-  <body>
-    <h2>Live Signals (snapshot + ticks)</h2>
-    <div id="status" class="status">Connecting...</div>
-    <div id="grid" class="grid"></div>
+<body>
+<h2>Live Trade Simulator</h2>
+<p>User: <b>test_user</b></p>
 
-    <script>
-      const statusEl = document.getElementById("status");
-      const grid = document.getElementById("grid");
+<div id="grid" class="grid"></div>
 
-      let SYMBOLS = [];
-      let WINDOW = 10;
+<h3>Open Positions</h3>
+<pre id="positions">(none)</pre>
 
-      const windows = {};   // {sym: [tick, ...]}
-      const lastPrice = {}; // {sym: number}
+<script>
+const USER_ID = "test_user";
+const WS_URL = "ws://127.0.0.1:8000/ws";
+const API_URL = "http://127.0.0.1:8000/record-trade";
 
-      function render() {
-        grid.innerHTML = SYMBOLS.map(sym => {
-          const arr = windows[sym] || [];
-          const lp = lastPrice[sym];
-          const priceText = (lp == null) ? "--" : lp;
+const state = {};        // latest prices: symbol -> price
+const openTrades = {};   // symbol -> trade info
+const volumes = {};      // symbol -> chosen volume
+const history = {};      // symbol -> array of ticks (up to WINDOW)
+let WINDOW = 100;        // will be overwritten by snapshot.window if provided
 
-          const lines = arr
-            .slice()
-            .reverse()
-            .map(t => `${new Date(t.t).toLocaleTimeString()}  p=${t.p}  v=${t.v}`)
-            .join("\n") || "(no data yet)";
+const grid = document.getElementById("grid");
+const posEl = document.getElementById("positions");
 
-          return `
-            <div class="card">
-              <div class="sym">${sym}</div>
-              <div class="price">${priceText}</div>
-              <div style="color:#666;font-size:12px;">Window = ${WINDOW}</div>
-              <pre>${lines}</pre>
-            </div>
-          `;
-        }).join("");
+function safeVolume(v) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return 1;
+  return Math.max(1, Math.min(100, Math.floor(n)));
+}
+
+
+function setVolume(symbol, value) {
+  volumes[symbol] = safeVolume(value);
+  render();
+}
+
+function fmtTickLine(t) {
+  // t: {s,p,v,t}
+  const timeStr = t?.t ? new Date(t.t).toLocaleTimeString() : "--";
+  const p = (t?.p ?? "--");
+  const v = (t?.v ?? "--");
+  return `${timeStr}  p=${p}  v=${v}`;
+}
+
+function render() {
+  grid.innerHTML = Object.keys(state).map(sym => {
+    const p = state[sym];
+    const isOpen = !!openTrades[sym];
+    const vol = volumes[sym] ?? 1.0;
+
+    const arr = history[sym] || [];
+    const lines = arr.map(fmtTickLine).join("\n") || "(waiting for ticks...)";
+
+    return `
+      <div class="card">
+        <div><b>${sym}</b></div>
+        <div class="price">${p ?? "--"}</div>
+
+        ${isOpen ? `
+          <div class="open">Position OPEN</div>
+          <div class="hint">Volume locked: <b>${openTrades[sym].volume}</b></div>
+          <button onclick="closeTrade('${sym}')">Close</button>
+        ` : `
+          <div class="row">
+            <label>Volume:</label>
+            <input type="number" min="1" max="100" step="1" value="${vol}"
+              oninput="setVolume('${sym}', this.value)">
+          </div>
+          <div class="hint">Profit/Loss scales with volume.</div>
+          <button onclick="openTrade('${sym}', 'Buy')">Buy</button>
+          <button onclick="openTrade('${sym}', 'Sell')">Sell</button>
+        `}
+
+        <div class="hint" style="margin-top:10px;">
+          History (last ${WINDOW} ticks)
+        </div>
+        <pre class="history">${lines}</pre>
+      </div>
+    `;
+  }).join("");
+
+  posEl.textContent = JSON.stringify(openTrades, null, 2);
+}
+
+function openTrade(symbol, side) {
+  const vol = safeVolume(volumes[symbol] ?? 1.0);
+
+  openTrades[symbol] = {
+    asset: symbol,
+    side,
+    entry_price: state[symbol],
+    open_time: Date.now() / 1000,
+    volume: vol
+  };
+  render();
+}
+
+async function closeTrade(symbol) {
+  const t = openTrades[symbol];
+  if (!t) return;
+
+  const tradePayload = {
+    user_id: USER_ID,
+    asset: symbol,
+    side: t.side,
+    entry_price: t.entry_price,
+    exit_price: state[symbol],
+    volume: t.volume,
+    open_time: t.open_time,
+    close_time: Date.now() / 1000
+  };
+
+  await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(tradePayload)
+  });
+
+  delete openTrades[symbol];
+  render();
+}
+
+const ws = new WebSocket(WS_URL);
+
+ws.onmessage = (evt) => {
+  const msg = JSON.parse(evt.data);
+
+  if (msg.type === "snapshot") {
+    WINDOW = msg.window ?? WINDOW;
+
+    msg.symbols.forEach(sym => {
+      // init chosen volume
+      if (volumes[sym] == null) volumes[sym] = 1.0;
+
+      // load full window history from backend snapshot
+      const arr = msg.windows?.[sym] || [];
+      history[sym] = arr.slice(-WINDOW);
+
+      // set latest price
+      if (history[sym].length) {
+        state[sym] = history[sym][history[sym].length - 1].p;
+      } else {
+        state[sym] = state[sym] ?? null;
       }
+    });
 
-      const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+    render();
+  }
 
-      ws.onopen = () => statusEl.textContent = "Connected";
-      ws.onerror = () => statusEl.textContent = "WebSocket error";
-      ws.onclose = () => statusEl.textContent = "Disconnected";
+  if (msg.type === "tick") {
+    const t = msg.tick;
+    const sym = t.s;
 
-      ws.onmessage = (evt) => {
-        const msg = JSON.parse(evt.data);
+    state[sym] = t.p;
 
-        if (msg.type === "snapshot") {
-          SYMBOLS = msg.symbols;
-          WINDOW = msg.window;
+    if (!history[sym]) history[sym] = [];
+    history[sym].push(t);
+    if (history[sym].length > WINDOW) history[sym].shift();
 
-          for (const sym of SYMBOLS) {
-            windows[sym] = (msg.windows?.[sym] || []);
-            lastPrice[sym] = windows[sym].length ? windows[sym][windows[sym].length - 1].p : null;
-          }
-
-          render();
-          return;
-        }
-
-        if (msg.type === "tick") {
-          const t = msg.tick;
-          const sym = t.s;
-          if (!windows[sym]) windows[sym] = [];
-
-          windows[sym].push(t);
-          if (windows[sym].length > WINDOW) windows[sym].shift();
-
-          lastPrice[sym] = t.p;
-          render();
-        }
-      };
-
-      // optional keepalive
-      setInterval(() => ws.readyState === 1 && ws.send("ping"), 15000);
-    </script>
-  </body>
+    render();
+  }
+};
+</script>
+</body>
 </html>
