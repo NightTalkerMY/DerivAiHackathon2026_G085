@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body { font-family: Arial, sans-serif; margin: 24px; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 16px; }
+      .card { border: 1px solid #ddd; border-radius: 12px; padding: 14px; }
+      .sym { font-size: 18px; font-weight: 700; }
+      .price { font-size: 32px; margin-top: 6px; }
+      pre { background:#f6f6f6; padding:10px; border-radius:10px; max-height:180px; overflow:auto; }
+      .status { margin-bottom: 12px; color: #666; }
+    </style>
+  </head>
+
+  <body>
+    <h2>Live Signals (snapshot + ticks)</h2>
+    <div id="status" class="status">Connecting...</div>
+    <div id="grid" class="grid"></div>
+
+    <script>
+      const statusEl = document.getElementById("status");
+      const grid = document.getElementById("grid");
+
+      let SYMBOLS = [];
+      let WINDOW = 10;
+
+      const windows = {};   // {sym: [tick, ...]}
+      const lastPrice = {}; // {sym: number}
+
+      function render() {
+        grid.innerHTML = SYMBOLS.map(sym => {
+          const arr = windows[sym] || [];
+          const lp = lastPrice[sym];
+          const priceText = (lp == null) ? "--" : lp;
+
+          const lines = arr
+            .slice()
+            .reverse()
+            .map(t => `${new Date(t.t).toLocaleTimeString()}  p=${t.p}  v=${t.v}`)
+            .join("\n") || "(no data yet)";
+
+          return `
+            <div class="card">
+              <div class="sym">${sym}</div>
+              <div class="price">${priceText}</div>
+              <div style="color:#666;font-size:12px;">Window = ${WINDOW}</div>
+              <pre>${lines}</pre>
+            </div>
+          `;
+        }).join("");
+      }
+
+      const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+
+      ws.onopen = () => statusEl.textContent = "Connected";
+      ws.onerror = () => statusEl.textContent = "WebSocket error";
+      ws.onclose = () => statusEl.textContent = "Disconnected";
+
+      ws.onmessage = (evt) => {
+        const msg = JSON.parse(evt.data);
+
+        if (msg.type === "snapshot") {
+          SYMBOLS = msg.symbols;
+          WINDOW = msg.window;
+
+          for (const sym of SYMBOLS) {
+            windows[sym] = (msg.windows?.[sym] || []);
+            lastPrice[sym] = windows[sym].length ? windows[sym][windows[sym].length - 1].p : null;
+          }
+
+          render();
+          return;
+        }
+
+        if (msg.type === "tick") {
+          const t = msg.tick;
+          const sym = t.s;
+          if (!windows[sym]) windows[sym] = [];
+
+          windows[sym].push(t);
+          if (windows[sym].length > WINDOW) windows[sym].shift();
+
+          lastPrice[sym] = t.p;
+          render();
+        }
+      };
+
+      // optional keepalive
+      setInterval(() => ws.readyState === 1 && ws.send("ping"), 15000);
+    </script>
+  </body>
+</html>
