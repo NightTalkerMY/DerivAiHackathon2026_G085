@@ -19,7 +19,12 @@ load_dotenv()
 # --- CONFIGURATION ---
 FINNHUB_KEY = os.environ.get("FINNHUB_API_KEY")
 FINNHUB_WS = f"wss://ws.finnhub.io?token={FINNHUB_KEY}"
-SYMBOLS = ["AAPL", "AMZN", "BINANCE:BTCUSDT", "MSFT"]
+SYMBOLS = [
+    "BINANCE:BTCUSDT",
+    "BINANCE:ETHUSDT",
+    "BINANCE:SOLUSDT",
+    "BINANCE:BNBUSDT"
+]
 WINDOW = 100
 TRADES_DB = "trades_history.json"
 
