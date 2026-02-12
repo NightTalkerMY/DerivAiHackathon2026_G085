@@ -18,7 +18,8 @@ GOOGLE_KEYS = [
 DB_PATH = "rag_db"
 GLOSSARY_PATH = "datasets/glossary_tags.json"
 COLLECTION_NAME = "trading_knowledge"
-USERS_DB_PATH = "document_db/users_db.json"
+USER_DB = "database/users.json"
+TRADE_DB = "database/trades.json"
 
 #  MODELS 
 ROUTER_LLM_MODEL_NAME = "openai/gpt-oss-120b" # Groq

@@ -22,6 +22,7 @@ logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
 logging.getLogger("chromadb").setLevel(logging.ERROR)
 
 import uvicorn
+import uuid
 import time
 import json
 from contextlib import asynccontextmanager
@@ -35,6 +36,8 @@ from router import SemanticRouter
 from rag import RAGPipeline
 from brain import SenseiBrain
 import config
+from db import db
+from analytics import analyze_batch, analyze_single_trade
 
 #  LOGGING SETUP 
 logging.basicConfig(
@@ -62,6 +65,18 @@ class ChatResponse(BaseModel):
     context: Optional[Dict[str, Any]] = None 
     latency_ms: float = 0.0
 
+class TradePayload(BaseModel):
+    user_id: str  
+    asset: str
+    side: str
+    entry_price: float
+    exit_price: float
+    volume: float
+    open_time: float
+    close_time: float
+    stop_loss: Optional[float] = None
+    take_profit: Optional[float] = None
+
 #  GLOBAL STATE 
 ml_models = {}
 
@@ -76,26 +91,26 @@ async def lifespan(app: FastAPI):
     
     try:
 
-        # 1. Load User Database
+        # Load User Database
         print("   1. Loading User Database...", end=" ", flush=True)
-        if os.path.exists(config.USERS_DB_PATH):
-            with open(config.USERS_DB_PATH, "r", encoding="utf-8") as f:
+        if os.path.exists(config.USER_DB):
+            with open(config.USER_DB, "r", encoding="utf-8") as f:
                 global users_db
                 users_db = json.load(f)
             print(f"Done ({len(users_db)} users loaded)")
         else:
-            print(f"Warning: {config.USERS_DB_PATH} not found. No users can log in.")
+            print(f"Warning: {config.USER_DB} not found. No users can log in.")
             users_db = {}
 
-        # 2. Initialize Router
+        # Initialize Router
         ml_models["router"] = SemanticRouter()
         logger.info("Semantic Router initialized successfully.")
         
-        # 3. Initialize RAG Engine
+        # Initialize RAG Engine
         ml_models["rag"] = RAGPipeline()
         logger.info("RAG Engine (ChromaDB + Cross-Encoder) initialized successfully.")
         
-        # 4. Initialize Brain
+        # Initialize Brain
         ml_models["brain"] = SenseiBrain()
         logger.info("LLM Brain initialized successfully.")
         
@@ -137,7 +152,7 @@ async def chat_endpoint(request: ChatRequest):
             detail=f"User '{request.user_id}' not registered in Sensei DB."
         )
 
-    print(f"📩 [{request.user_id}] Query: {request.query}")
+    print(f"[{request.user_id}] Query: {request.query}")
     
     try:
         # 2. STATE UPDATE (New Feature!)
@@ -148,7 +163,6 @@ async def chat_endpoint(request: ChatRequest):
         incoming_state = request.user_state
         
         # Check if we need to update the DB (Basic check)
-        # In a real app, you'd have more complex logic here, but for Hackathon, trust the frontend.
         users_db[request.user_id] = {
             "current_chapter": incoming_state.current_chapter,
             "finished_chapters": incoming_state.finished_chapters,
@@ -157,7 +171,7 @@ async def chat_endpoint(request: ChatRequest):
         }
         
         # Save to JSON file immediately so it persists
-        with open(config.USERS_DB_PATH, "w", encoding="utf-8") as f:
+        with open(config.USER_DB, "w", encoding="utf-8") as f:
             json.dump(users_db, f, indent=2)
             
         # Use this NEW updated profile for the Brain
@@ -206,6 +220,56 @@ async def chat_endpoint(request: ChatRequest):
 @app.get("/health")
 async def health_check():
     return {"status": "operational", "timestamp": time.time()}
+
+@app.get("/dashboard/{user_id}")
+async def get_dashboard_data(user_id: str):
+    # Get Theory Data (Radar Chart)
+    # This comes from db.py looking at "finished_chapters"
+    user_profile = db.get_user_profile(user_id)
+    
+    # Get Practice Data (Performance Card)
+    # This comes from trades.json -> analytics.py
+    raw_trades = db.get_user_trades(user_id)
+    performance_metrics = analyze_batch(raw_trades)
+    
+    # Combine for Frontend
+    return {
+        "user_info": {
+            "username": user_profile.get("username", "Trader"),
+            "balance": user_profile.get("balance", 0),
+        },
+        "competency_radar": user_profile.get("competency", {}), # Foundations, Risk, etc.
+        "performance_summary": performance_metrics,             # Win Rate, PnL, etc.
+        "recent_history": raw_trades                            # For the list view
+    }
+
+@app.post("/trade/close")
+async def record_closed_trade(trade: TradePayload):
+    """
+    1. Generates ID.
+    2. Saves to DB.
+    3. Returns Single Analysis for immediate "Sensei" feedback.
+    """
+    
+    # Convert to Dict
+    trade_dict = trade.model_dump()
+    user_id = trade_dict.pop("user_id")
+    
+    # Generate Unique Trade ID (Critical for Single Analysis)
+    trade_dict["trade_id"] = str(uuid.uuid4())[:8] # Short 8-char ID
+    
+    # Save to DB
+    db.add_trade(user_id, trade_dict)
+    
+    # Run Single Analysis IMMEDIATELY
+    # This prepares the data for the frontend to show the "After-Action Review"
+    analysis = analyze_single_trade(trade_dict)
+    
+    return {
+        "status": "success", 
+        "trade_id": trade_dict["trade_id"],
+        "analysis": analysis 
+    }
 
 #  ENTRY POINT 
 if __name__ == "__main__":

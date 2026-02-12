@@ -1,0 +1,26 @@
+{
+  "william": {
+    "username": "William",
+    "balance": 10500.0,
+    "competency": {
+      "foundations": 33,
+      "methodology": 0,
+      "indicators": 20,
+      "risk_management": 0,
+      "system_development": 0,
+      "analysis_backup": 0
+    },
+    "performance_summary": {
+      "win_rate": 55.5,
+      "profit_factor": 1.4,
+      "total_trades": 12
+    },
+    "learning": {
+      "current_chapter": "Trading structure",
+      "finished_chapters": [
+        "Goals and objectives",
+        "Indicators"
+      ]
+    }
+  }
+}
