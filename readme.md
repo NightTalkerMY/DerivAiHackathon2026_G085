@@ -1,28 +1,45 @@
-# The Adaptive Trading Dojo - AI Trading Mentor Backend
+# The Adaptive Trading Dojo - AI Backend V2
 
-![Python](https://img.shields.io/badge/Python-3.10.11-3776AB?style=flat&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-009688?style=flat&logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Event_Driven-009688?style=flat&logo=fastapi&logoColor=white)
 ![Google Gemini](https://img.shields.io/badge/AI_Brain-Gemini_2.5_Flash_Lite-4285F4?style=flat&logo=google&logoColor=white)
-![Groq](https://img.shields.io/badge/AI_Router-Groq_OSS_120B-f55036?style=flat)
+![Groq](https://img.shields.io/badge/Synthesizer-Groq_OSS_120B-f55036?style=flat)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-cc2b5e?style=flat)
-![RAG](https://img.shields.io/badge/Architecture-Hybrid_RAG-orange?style=flat)
 
-**The Adaptive Trading Dojo** is an intelligent, persona-driven backend for an AI trading mentor. Unlike standard chatbots, this system features a **Semantic Routing architecture** that differentiates between casual chitchat, off-topic queries, and deep technical questions requiring **Retrieval-Augmented Generation (RAG)**.
+**The Adaptive Trading Dojo V2** is a proactive, event-driven backend for personalized trading education. It moves beyond standard chatbots by using a **Query Synthesizer** to automatically translate user actions (like losing a trade or highlighting text) into targeted educational retrieval.
 
-It is built with **FastAPI** and uses a **Hybrid Brain** approach:
-* **The Router:** Groq (Llama 3 70B) for high-speed intent classification.
-* **The Brain:** Google Gemini 2.0 Flash Lite for persona-driven response generation.
-* **The Memory:** ChromaDB + Cross-Encoders for high-precision RAG.
+The system features a **"Sensei" Persona** that adapts its coaching style based on real-time performance metrics (Win Rate, PnL, Discipline), creating a closed feedback loop between **Theory (Curriculum)** and **Practice (Live Trading)**.
+
+---
+
+## System Architecture
+
+The backend operates on a **Proactive Event Loop**:
+
+1.  **Event Trigger:** User performs an action (e.g., Closes a losing trade).
+2.  **Synthesizer (Groq):** Translates raw event data (PnL -$50, No Stop Loss) into a specific search query (e.g., *"psychology of revenge trading"*).
+3.  **RAG Engine:** Retrieves precise advice from the Vector Database.
+4.  **The Brain (Gemini):** Analyzes the context and generates a personalized insight or "Scolding."
+5.  **Persistence:** Updates the User Database to drive the Dashboard UI.
 
 ---
 
 ## Key Features
 
-* **Resilient API Client:** Automatically rotates between multiple Gemini API keys (`DEFAULT`, `HACK1`, `HACK2`, `HACK3`) to ensure 100% uptime during demos and bypass rate limits.
-* **Semantic Routing:** Intelligent intent detection using Groq. Queries like "How to make pizza" are instantly rejected, saving RAG resources for valid trading questions.
-* **Hybrid RAG Engine:** Fetches documents via Vector Search (ChromaDB) and re-ranks them using a Cross-Encoder for maximum accuracy.
-* **Dynamic Persona:** The "Sensei" adapts his tone based on the user's **Win Rate** and **Chapter Progress** (Strict for struggling students, encouraging for winners).
-* **Persistent State:** User progress is synced to a local JSON database (`users_db.json`), preventing frontend spoofing and maintaining context across restarts.
+### 1. Intelligent Dashboard
+* **Daily Briefing:** Instead of static charts, the AI writes a daily summary analyzing your recent performance and learning progress.
+* **Competency Radar:** Tracks your "Book Smarts" based on completed modules.
+
+### 2. LiveTrade Co-Pilot
+* **Pre-Flight Check:** Before you enter a trade (`/trade/open`), the AI warns you about specific risks for that asset (e.g., "Gold is volatile during NY Open").
+* **Post-Trade Audit:** When you close a trade (`/trade/close`), the AI immediately analyzes your discipline.
+    * *Did you use a Stop Loss?*
+    * *Did you stick to your plan?*
+* **Instant Feedback:** Returns an immediate overlay message scolding or congratulating the user.
+
+### 3. Adaptive Curriculum
+* **Ask AI (Overlay):** Highlight any text in a module (`/curriculum/ask`) to get an instant, simplified explanation from the AI Tutor.
+* **Smart Recommendations:** If you lose a trade due to poor risk management, the system **automatically recommends** the "Risk Management" chapter in the Curricular tab.
 
 ---
 
@@ -30,25 +47,24 @@ It is built with **FastAPI** and uses a **Hybrid Brain** approach:
 
 ```bash
 root/
-├── client_test.py         # Script to simulate frontend requests (Run this from root)
-├── requirements.txt       # Python dependencies
-├── venv/                  # Virtual Environment
-└── server/                # Main Backend Source Code
-    ├── server_main.py     # FastAPI Entry Point (Run this file)
-    ├── brain.py           # The Sensei Persona & Logic Orchestrator
-    ├── rag.py             # RAG Engine (ChromaDB + Cross-Encoder)
-    ├── router.py          # Semantic Router (Groq)
-    ├── gemini_client.py   # Resilient Client with Key Rotation
-    ├── config.py          # Configuration Loader
-    ├── chat_sessions.json # Conversation History
-    ├── .env               # API Keys (Located inside server folder)
-    ├── datasets/          # Raw knowledge base and tags
-    │   ├── glossary_tags.json
-    │   ├── knowledge_base_clean.json
-    │   └── knowledge_base_tagged.json
-    ├── rag_db/            # ChromaDB Vector Store
-    └── document_db/       #
-        └── users_db.json  # "Source of Truth" for User State
+├── hooks/                  # Auxiliary scripts & metric tests
+├── server/                 # Main Backend Source Code
+│   ├── database/           # JSON storage (Auto-generated)
+│   │   ├── users.json      # Source of Truth for User State
+│   │   └── trades.json     # FIFO Trade History
+│   ├── rag_db/             # ChromaDB Vector Store
+│   ├── analytics.py        # Math engine (Win Rate, PnL, Risk Calc)
+│   ├── brain.py            # "The Sensei" Persona & Logic Orchestrator
+│   ├── config.py           # Configuration Loader
+│   ├── db.py               # Database Manager (JSON Read/Write)
+│   ├── gemini_client.py    # Resilient Client with Key Rotation
+│   ├── rag.py              # RAG Engine (ChromaDB + Cross-Encoder)
+│   ├── server_main.py      # FastAPI Entry Point
+│   └── synthesizer.py      # Event-to-Query Engine (Replaces Router)
+├── client_journey_test.py  # Full User Journey Simulation Script
+├── client_test.py          # Basic Endpoint Test
+├── requirements.txt        # Python Dependencies
+└── .env                    # API Keys
 
 ```
 
@@ -120,7 +136,6 @@ cd server
 uvicorn server_main:app --reload
 
 ```
-
 *You will see the "System Startup" logs initializing the Semantic Router and RAG Engine.*
 
 ### 2. Test the API
@@ -135,55 +150,77 @@ python client_test.py
 
 ---
 
-## API Contract (For Frontend Integration)
+## API Reference
 
-**Endpoint:** `POST /chat`
-**Headers:** `Content-Type: application/json`
+### 1. Dashboard & Profile
 
-### Request Payload
+**`GET /dashboard/{user_id}`**
+Returns the full state for the UI: Balance, Radar Chart, Daily Briefing (AI Insight), and Recommended Module.
 
-The frontend **must** send the current user state with every request.
+### 2. Chat (The Sensei)
+
+**`POST /chat`**
+Standard conversational interface.
 
 ```json
 {
   "user_id": "william",
-  "query": "I keep losing money on gold. What should I do?",
-  "user_state": {
-    "current_chapter": "1. Psychology",
-    "finished_chapters": ["Introduction"],
-    "unfinished_chapters": ["Risk Management"],
-    "win_rate": "40%"
-  }
+  "query": "How do I size my position?",
+  "user_state": { "current_chapter": "Risk Management" }
 }
 
 ```
 
-### Response Payload
+### 3. Curriculum Features
+
+**`POST /curriculum/ask`** (Text Highlight Overlay)
 
 ```json
 {
-  "answer": "Stop trading immediately! Your win rate is 40%...", 
-  "sources": ["risk management", "psychology"],
-  "context": {
-      "text": "The 2% rule states...",
-      "metadata": { "chapter": "1" },
-      "score": 0.85
-  },
-  "latency_ms": 1250
+  "user_id": "william",
+  "current_chapter": "Market Structure",
+  "highlighted_text": "What is a liquidity sweep?"
 }
 
 ```
 
----
+**`POST /curriculum/complete`** (Finish Module)
 
-## Troubleshooting
+```json
+{ "user_id": "william", "chapter_id": "Trading Psychology" }
 
-* **`ImportError: DLL load failed`**: This usually happens if you didn't upgrade pip before installing requirements. Run `python -m pip install --upgrade pip` and try re-installing.
-* **Server crashes on reload:** Heavy AI models (Chroma/Transformers) take time to load. If you edit a file, the auto-reload might hiccup. Just `Ctrl+C` and restart `uvicorn`.
-* **"User not found" Error:** The backend enforces security. Ensure the `user_id` you are sending exists in `server/document_db/users_db.json`.
+```
 
+### 4. Live Trading
+
+**`POST /trade/open`** (Pre-Flight Check)
+
+```json
+{ "user_id": "william", "asset": "BTCUSDT", "side": "buy" }
+
+```
+
+**`POST /trade/close`** (Post-Trade Analysis)
+Triggers the Analysis -> Dashboard Update -> Recommendation pipeline.
+
+```json
+{
+  "user_id": "william",
+  "asset": "BTCUSDT",
+  "side": "buy",
+  "entry_price": 65000,
+  "exit_price": 64000,
+  "volume": 0.5,
+  "open_time": 1700000000,
+  "close_time": 1700000600,
+  "stop_loss": null,
+  "take_profit": 66000
+}
+
+
+```
 ---
 
 ## License
-
 This project is licensed under the MIT License
+
