@@ -140,11 +140,30 @@ uvicorn server_main:app --reload
 
 ### 2. Test the API
 
-Open a **new terminal**, keep it in the **root** folder (don't `cd server`), and run the test script.
+We provide two test scripts to validate the system.
+
+#### 1. Basic Sanity Check
+
+**`client_test.py`**
+Use this for quick unit testing. It hits every endpoint once to ensure the server is running and returning 200 OK status codes.
 
 ```bash
-# Run from the root directory
 python client_test.py
+
+```
+
+#### 2. Full User Journey Simulation
+
+**`client_journey_test.py`**
+Use this to verify the entire logic flow. It simulates a "Day in the Life" of a user:
+
+1. **Reads a Module:** Highlights text -> AI Explains.
+2. **Opens a Trade:** Triggers Pre-Flight Check overlay.
+3. **Loses a Trade:** Triggers Post-Trade Audit.
+4. **Verification:** Checks if the **Dashboard** updated with a new "Scolding" message and if the **Curriculum** tab received a personalized Recommendation.
+
+```bash
+python client_journey_test.py
 
 ```
 
@@ -223,4 +242,3 @@ Triggers the Analysis -> Dashboard Update -> Recommendation pipeline.
 
 ## License
 This project is licensed under the MIT License
-
