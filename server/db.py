@@ -56,6 +56,14 @@ class Database:
     def _write_json(self, path, data):
         with open(path, 'w') as f: json.dump(data, f, indent=2)
 
+    def get_curriculum_list(self):
+        """Helper to give the Brain the list of valid chapters."""
+        # Flattens the CURRICULUM dict into a simple list of strings
+        chapters = []
+        for cat, ch_list in CURRICULUM.items():
+            chapters.extend(ch_list)
+        return chapters
+
     def sync_learning_state(self, user_id: str, learning_data: dict):
         """
         Updates only the learning progress from the Frontend.
@@ -69,11 +77,17 @@ class Database:
         # Update specific fields
         user_learning = data[user_id]["learning"]
         user_learning["current_chapter"] = learning_data.get("current_chapter")
-        user_learning["finished_chapters"] = learning_data.get("finished_chapters", [])
                     
         self._write_json(USER_DB, data)
         # Recalculate radar chart since finished_chapters change
         self.recalculate_competency(user_id)
+
+    def update_dashboard_insight(self, user_id: str, insight_text: str):
+        """Stores the latest AI summary for the dashboard."""
+        data = self._read_json(USER_DB)
+        if user_id in data:
+            data[user_id]["dashboard_insight"] = insight_text
+            self._write_json(USER_DB, data)
 
     def update_performance(self, user_id: str, metrics: dict):
         """
@@ -84,6 +98,16 @@ class Database:
         if user_id in data:
             # Overwrite the old summary with the fresh math
             data[user_id]["performance_summary"] = metrics
+            self._write_json(USER_DB, data)
+
+    def update_recommendation(self, user_id: str, recommendation: dict):
+        """
+        Saves the specific module recommendation.
+        Format: {"module": "Risk Management", "reason": "Stop loss violation"}
+        """
+        data = self._read_json(USER_DB)
+        if user_id in data:
+            data[user_id]["recommended_study"] = recommendation
             self._write_json(USER_DB, data)
 
     def mark_chapter_complete(self, user_id, chapter_name):

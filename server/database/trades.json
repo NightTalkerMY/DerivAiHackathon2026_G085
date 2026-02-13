@@ -1,124 +1,16 @@
 {
   "william": [
     {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 66000.0,
-      "volume": 0.1,
-      "open_time": 1770957098.5691433,
-      "close_time": 1770957218.5691433,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "e3a3346b"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
+      "asset": "BTCUSDT",
+      "side": "buy",
       "entry_price": 65000.0,
       "exit_price": 64000.0,
-      "volume": 0.1,
-      "open_time": 1770957100.616826,
-      "close_time": 1770957220.616826,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "b7fdda55"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 64000.0,
-      "volume": 0.1,
-      "open_time": 1770957102.673337,
-      "close_time": 1770957222.673337,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "6023c02e"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 64000.0,
-      "volume": 0.1,
-      "open_time": 1770957104.7160206,
-      "close_time": 1770957224.7160206,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "701dcfb3"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 64000.0,
-      "volume": 0.1,
-      "open_time": 1770957106.7945344,
-      "close_time": 1770957226.7945344,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "19db0f3d"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 64000.0,
-      "volume": 0.1,
-      "open_time": 1770957108.848481,
-      "close_time": 1770957228.848481,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "7f012ed4"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 64000.0,
-      "volume": 0.1,
-      "open_time": 1770957110.8941493,
-      "close_time": 1770957230.8941493,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "330876c8"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 66000.0,
-      "volume": 0.1,
-      "open_time": 1770957112.9518583,
-      "close_time": 1770957232.9518583,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "5ba15b2b"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 66000.0,
-      "volume": 0.1,
-      "open_time": 1770957114.9902182,
-      "close_time": 1770957234.9902182,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "704a5069"
-    },
-    {
-      "asset": "BINANCE:BTCUSDT",
-      "side": "Buy",
-      "entry_price": 65000.0,
-      "exit_price": 64000.0,
-      "volume": 0.1,
-      "open_time": 1770957117.0416198,
-      "close_time": 1770957237.0416198,
-      "stop_loss": 64500.0,
-      "take_profit": 66500.0,
-      "trade_id": "b32b6d5a"
+      "volume": 0.5,
+      "open_time": 1770980143.9311213,
+      "close_time": 1770980743.9311213,
+      "stop_loss": null,
+      "take_profit": 66000.0,
+      "trade_id": "84e8b1ea"
     }
   ]
 }

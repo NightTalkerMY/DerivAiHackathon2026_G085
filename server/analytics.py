@@ -121,6 +121,8 @@ def analyze_single_trade(t: Dict) -> Dict:
             r_multiple = raw_r if outcome == "WIN" else -raw_r
 
     return {
+        "asset": t.get("asset", "Unknown Asset"),
+        "side": side.upper(),
         "trade identifier": t.get("trade_id", "unknown"),
         "profit and loss": round(pnl, 2),
         "trade outcome": outcome,

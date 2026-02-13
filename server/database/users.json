@@ -1,31 +1,37 @@
 {
   "william": {
     "username": "William",
-    "balance": 10500.0,
     "competency": {
       "foundations": 0,
-      "methodology": 0,
+      "methodology": 50,
       "indicators": 0,
       "risk_management": 0,
       "system_development": 0,
       "analysis_backup": 0
     },
     "performance_summary": {
-      "number of trades": 10,
-      "total profit and loss": -400.0,
-      "average profit and loss per trade": -40.0,
-      "average trade duration in seconds": 120.0,
-      "average trade notional value": 6500.0,
-      "profit and loss per second": -0.3333,
-      "capital efficiency ratio": -0.006154,
-      "directional accuracy percentage": 30.0,
-      "risk definition rate percentage": 100.0,
+      "number of trades": 1,
+      "total profit and loss": -500.0,
+      "average profit and loss per trade": -500.0,
+      "average trade duration in seconds": 600.0,
+      "average trade notional value": 32500.0,
+      "profit and loss per second": -0.8333,
+      "capital efficiency ratio": -0.015385,
+      "directional accuracy percentage": 0.0,
+      "risk definition rate percentage": 0.0,
       "reward definition rate percentage": 100.0,
-      "structured trade rate percentage": 100.0
+      "structured trade rate percentage": 50.0
     },
     "learning": {
-      "current_chapter": "Trading tools",
-      "finished_chapters": []
+      "current_chapter": "",
+      "finished_chapters": [
+        "Trading style"
+      ]
+    },
+    "dashboard_insight": "Mastering your trading style is the first step on the path to profitability, and your recent completion of this chapter is a testament to your dedication. While your current PnL shows a loss, remember that every great trader began their journey with lessons learned, and this chapter is foundational to navigating those early challenges.",
+    "recommended_study": {
+      "module": "Stop losses",
+      "reason": "Your BTCUSDT long trade resulted in a loss because you did not define a stop loss. This is a critical oversight that exposed your capital to unnecessary risk. Review the 'Stop losses' module immediately to understand how to protect your capital."
     }
   }
 }

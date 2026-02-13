@@ -1,0 +1,28 @@
+{
+  "raw": [
+    {
+      "user_id": "test_user",
+      "asset": "BINANCE:BTCUSDT",
+      "side": "Buy",
+      "entry_price": 67603.31,
+      "exit_price": 67623.92,
+      "volume": 5.0,
+      "open_time": 1770859487.6,
+      "close_time": 1770859504.008,
+      "stop_loss": null,
+      "take_profit": null
+    },
+    {
+      "user_id": "test_user",
+      "asset": "BINANCE:BTCUSDT",
+      "side": "Buy",
+      "entry_price": 67848.86,
+      "exit_price": 67842.35,
+      "volume": 5.0,
+      "open_time": 1770859636.609,
+      "close_time": 1770859648.304,
+      "stop_loss": null,
+      "take_profit": null
+    }
+  ]
+}

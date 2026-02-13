@@ -32,7 +32,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 
 # Internal modules
-from router import SemanticRouter
+from synthesizer import QuerySynthesizer
 from rag import RAGPipeline
 from brain import SenseiBrain
 import config
@@ -51,8 +51,6 @@ logger = logging.getLogger(__name__)
 class UserState(BaseModel):
     current_chapter: str = Field(..., json_schema_extra={"example": "2. Risk Management"})
     finished_chapters: List[str] = Field(default=[], json_schema_extra={"example": ["1. Psychology"]})
-    unfinished_chapters: List[str] = Field(default=[], json_schema_extra={"example": ["3. Technical Analysis"]})
-    win_rate: str = Field(..., json_schema_extra={"example": "42%"})
 
 class ChatRequest(BaseModel):
     user_id: str = Field(..., json_schema_extra={"example": "user_123"})
@@ -81,6 +79,16 @@ class ChapterUpdate(BaseModel):
     user_id: str
     chapter_id: str = Field(..., example="Chapter 4: Goals and objectives")
 
+class CurriculumAskRequest(BaseModel):
+    user_id: str
+    current_chapter: str
+    highlighted_text: str = Field(..., example="What is a trailing stop?")
+
+class TradeOpenPayload(BaseModel):
+    user_id: str
+    asset: str
+    side: str # "buy" or "sell"
+
 #  GLOBAL STATE 
 ml_models = {}
 
@@ -106,9 +114,9 @@ async def lifespan(app: FastAPI):
             print(f"Warning: {config.USER_DB} not found. No users can log in.")
             users_db = {}
 
-        # Initialize Router
-        ml_models["router"] = SemanticRouter()
-        logger.info("Semantic Router initialized successfully.")
+        # Initialize Synthesizer
+        ml_models["synthesizer"] = QuerySynthesizer() 
+        logger.info("Query Synthesizer initialized successfully.")
         
         # Initialize RAG Engine
         ml_models["rag"] = RAGPipeline()
@@ -148,20 +156,19 @@ app.add_middleware(
 async def chat_endpoint(request: ChatRequest):
     start_time = time.time()
     
-    # SYNC LEARNING
-    # Update DB with latest chapter from frontend
+    # 1. SYNC LEARNING
     db.sync_learning_state(request.user_id, {
         "current_chapter": request.user_state.current_chapter,
-        # We assume /curriculum/complete handles the finished_chapters logic
     })
 
-    # GET REAL STATS (The Source of Truth)
+    # 2. GET REAL STATS
     raw_trades = db.get_user_trades(request.user_id)
     real_metrics = analyze_batch(raw_trades) 
     
     # 3. RETRIEVE CONTEXT (RAG)
-    tags = ml_models["router"].get_relevant_tags(request.query)
-    context_data = ml_models["rag"].search(request.query, tags=tags)
+    # CHANGED: No more router/tags. Direct search.
+    # We pass tags=None to rag.search (assuming your RAG code handles None)
+    context_data = ml_models["rag"].search(request.query, tags=None)
     
     # 4. GENERATE RESPONSE
     user_profile = db.get_user_profile(request.user_id)
@@ -182,7 +189,7 @@ async def chat_endpoint(request: ChatRequest):
     
     return ChatResponse(
         answer=response_text,
-        sources=tags if tags else ["General Logic"],
+        sources=["Direct Search"], # Generic source label
         latency_ms=round(latency, 2),
         context=context_data
     )
@@ -208,9 +215,11 @@ async def get_dashboard_data(user_id: str):
             "username": user_profile.get("username", "Trader"),
             "balance": user_profile.get("balance", 0),
         },
+        "ai_insight": user_profile.get("dashboard_insight", "Welcome back. When you complete a lesson or close a trade, I will prepare your Daily Briefing."),
         "competency_radar": user_profile.get("competency", {}), # Foundations, Risk, etc.
         "performance_summary": performance_metrics,             # Win Rate, PnL, etc.
-        "recent_history": raw_trades                            # For the list view
+        "recent_history": raw_trades,                            # For the list view
+        "recommended_study": user_profile.get("recommended_study", {})
     }
 
 @app.post("/trade/close")
@@ -242,13 +251,81 @@ async def record_closed_trade(trade: TradePayload):
     
     # Run Single Analysis IMMEDIATELY
     # This prepares the data for the frontend to show the "After-Action Review"
-    analysis = analyze_single_trade(trade_dict)
+    single_analysis = analyze_single_trade(trade_dict)
+
+
+    # Generate Synthetic Query (Small LLM)
+    # We pass the single trade outcome so the query is specific
+    synthetic_query = ml_models["synthesizer"].generate_synthetic_query(
+        event_type="trade_close",
+        data=single_analysis
+    )
     
+    # Retrieve Education (RAG)
+    rag_context = ml_models["rag"].search(synthetic_query, top_k_retrieval=1)
+    
+    # Generate Dashboard Summary (Brain)
+    # Describe the event for the Brain
+    event_desc = f"User closed a trade. Outcome: {single_analysis['trade outcome']}. PnL: {single_analysis['profit and loss']}."
+    
+    summary = ml_models["brain"].generate_dashboard_summary(
+        user_stats=fresh_metrics,
+        rag_context=rag_context,
+        recent_event_desc=event_desc
+    )
+    
+    # Save to DB
+    db.update_dashboard_insight(user_id, summary)
+
+    # Get valid chapters to force the Brain to pick a real one
+    valid_chapters = db.get_curriculum_list()
+    
+    # Ask Brain to pick one
+    recommendation = ml_models["brain"].recommend_next_module(
+        trade_analysis=single_analysis,
+        curriculum_list=valid_chapters
+    )
+    
+    # Save to DB
+    db.update_recommendation(user_id, recommendation)    
+
     return {
         "status": "success", 
         "trade_id": trade_dict["trade_id"],
-        "analysis": analysis 
+        "analysis": single_analysis,
+        "dashboard_updated": True,
+        "insight": summary,
+        "recommendation": recommendation 
+        }
+
+@app.post("/trade/open")
+async def open_trade_feedback(payload: TradeOpenPayload):
+    """
+    LiveTrade: Open Position Event.
+    Triggers 'Pre-Flight Check' overlay.
+    """
+    # Synthesize Query (e.g. "Trading rules for XAUUSD")
+    synthetic_query = ml_models["synthesizer"].generate_synthetic_query(
+        event_type="trade_open",
+        data={"asset": payload.asset, "side": payload.side}
+    )
+    
+    # RAG Search
+    rag_context = ml_models["rag"].search(synthetic_query, top_k_retrieval=1)
+    
+    # Brain Analysis (Co-Pilot)
+    feedback = ml_models["brain"].analyze_trade_entry(
+        asset=payload.asset,
+        side=payload.side,
+        rag_context=rag_context
+    )
+    
+    return {
+        "status": "success",
+        "query": synthetic_query,
+        "ai_overlay_message": feedback 
     }
+
 
 @app.post("/curriculum/complete")
 async def complete_chapter(payload: ChapterUpdate):
@@ -265,6 +342,29 @@ async def complete_chapter(payload: ChapterUpdate):
         # This usually means user doesn't exist or chapter already done
         pass
 
+    # Synthetic Query
+    synthetic_query = ml_models["synthesizer"].generate_synthetic_query(
+        event_type="module_complete",
+        data={"chapter": payload.chapter_id}
+    )
+    
+    # RAG
+    rag_context = ml_models["rag"].search(synthetic_query, top_k_retrieval=1)
+    
+    # Brain
+    # Get current stats for context
+    raw_trades = db.get_user_trades(payload.user_id)
+    metrics = analyze_batch(raw_trades)
+    
+    summary = ml_models["brain"].generate_dashboard_summary(
+        user_stats=metrics,
+        rag_context=rag_context,
+        recent_event_desc=f"User completed chapter: {payload.chapter_id}"
+    )
+    
+    # Save
+    db.update_dashboard_insight(payload.user_id, summary)
+
     # Fetch the fresh profile with the new scores
     user_profile = db.get_user_profile(payload.user_id)
     
@@ -273,6 +373,39 @@ async def complete_chapter(payload: ChapterUpdate):
         "message": f"Chapter '{payload.chapter_id}' marked as complete.",
         "new_competency": user_profile.get("competency", {}),
         "finished_chapters": user_profile["learning"].get("finished_chapters", [])
+    }
+
+@app.post("/curriculum/ask")
+async def ask_curriculum_concept(request: CurriculumAskRequest):
+    """
+    "Ask AI" Feature.
+    Triggered when user highlights text in the curriculum.
+    Returns a specific explanation for that concept.
+    """
+    # Synthesize Query (Clean up the highlight)
+    synthetic_query = ml_models["synthesizer"].generate_synthetic_query(
+        event_type="concept_highlight",
+        data={
+            "highlighted_text": request.highlighted_text,
+            "current_chapter": request.current_chapter
+        }
+    )
+    
+    # RAG Search
+    rag_context = ml_models["rag"].search(synthetic_query, top_k_retrieval=1)
+    
+    # Brain Explanation
+    explanation = ml_models["brain"].explain_learning_concept(
+        text_highlight=request.highlighted_text,
+        rag_context=rag_context,
+        current_chapter=request.current_chapter
+    )
+    
+    return {
+        "status": "success",
+        "query_generated": synthetic_query,
+        "explanation": explanation,
+        "related_context": rag_context
     }
 
 

@@ -1,0 +1,35 @@
+{
+  "william": {
+    "username": "William",
+    "competency": {
+      "foundations": 0,
+      "methodology": 0,
+      "indicators": 0,
+      "risk_management": 0,
+      "system_development": 0,
+      "analysis_backup": 0
+    },
+    "performance_summary": {
+      "number of trades": 0,
+      "total profit and loss": 0,
+      "average profit and loss per trade": 0,
+      "average trade duration in seconds": 0,
+      "average trade notional value": 0,
+      "profit and loss per second": 0,
+      "capital efficiency ratio": 0,
+      "directional accuracy percentage": 0.0,
+      "risk definition rate percentage": 0.0,
+      "reward definition rate percentage": 0.0,
+      "structured trade rate percentage": 0.0
+    },
+    "learning": {
+      "current_chapter": "",
+      "finished_chapters": []
+    },
+    "dashboard_insight": "",
+    "recommended_study": {
+      "module": "",
+      "reason": ""
+    }
+  }
+}
