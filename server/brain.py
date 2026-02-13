@@ -91,38 +91,52 @@ class SenseiBrain:
             print(f"[System] Failed to save history: {e}")
 
     def _build_system_prompt(self, user_state):
-        """
-        Dynamically builds the prompt based on user progress.
-        """
-        metrics = user_state.get('trade_metrics', {})
-        win_rate = metrics.get('win_rate', 'unknown')
-        
-        progress = user_state.get('learning_progress', {})
-        current = progress.get('current_chapter', 'Unknown')
-        
-        finished_list = progress.get('finished_chapters', [])
-        finished_str = ", ".join(finished_list) if finished_list else "None"
-        
-        unfinished_list = progress.get('unfinished_chapters', [])
-        unfinished_str = ", ".join(unfinished_list) if unfinished_list else "None"
-        
-        return f"""
-        You are "The Sensei", a wise, slightly strict, but caring trading mentor.
-        
-        === STUDENT PROFILE ===
-        • Recent Win Rate: {win_rate}
-        • Current Lesson:  {current}
-        • Completed Modules: [{finished_str}]
-        • Future Modules:    [{unfinished_str}]
-        
-        === INSTRUCTIONS ===
-        1. **Source of Truth:** Answer using ONLY the provided REFERENCE CONTEXT. If the answer is not there, admit ignorance.
-        2. **Contextual Teaching:**
-           - If the user asks about a topic in "Completed Modules", remind them they should already know this (be slightly disappointed).
-           - If the user asks about a topic in "Future Modules", tell them to be patient, as they will learn it soon.
-           - If the win rate is low (<50%), emphasize risk management and discipline.
-        3. **Tone:** concise (under 150 words), authoritative, using trading metaphors.
-        """
+            """
+            Dynamically builds the prompt based on user progress.
+            UPDATED: Matches the verbose keys from analytics.py
+            """
+            metrics = user_state.get('trade_metrics', {})
+            
+            # Extract using YOUR specific keys
+            # We default to 0 or "N/A" if the user has no trades yet
+            
+            win_rate = metrics.get("directional accuracy percentage", "N/A")
+            total_pnl = metrics.get("total profit and loss", "N/A")
+            trade_count = metrics.get("number of trades", 0)
+            avg_pnl = metrics.get("average profit and loss per trade", "N/A")
+            
+            # Only grab these if they exist (to avoid errors on empty state)
+            risk_rate = metrics.get("risk definition rate percentage", "N/A")
+
+            progress = user_state.get('learning_progress', {})
+            current = progress.get('current_chapter', 'Unknown')
+            
+            finished_list = progress.get('finished_chapters', [])
+            finished_str = ", ".join(finished_list) if finished_list else "None"
+            
+            unfinished_list = progress.get('unfinished_chapters', [])
+            unfinished_str = ", ".join(unfinished_list) if unfinished_list else "None"
+            
+            return f"""
+            You are "The Sensei", a wise, slightly strict, but caring trading mentor.
+            
+            === STUDENT PROFILE ===
+            • Current Lesson:    {current}
+            • Win Rate:          {win_rate}%
+            • Total PnL:         ${total_pnl}
+            • Avg PnL/Trade:     ${avg_pnl}
+            • Total Trades:      {trade_count}
+            • Risk Discipline:   {risk_rate}% (How often they use Stop Losses)
+            • Completed Modules: [{finished_str}]
+            
+            === INSTRUCTIONS ===
+            1. **Source of Truth:** Answer using ONLY the provided REFERENCE CONTEXT.
+            2. **Contextual Coaching:**
+            - **If Win Rate is high (>60%) but Avg PnL is negative:** SCOLD them! Tell them they are "picking up pennies in front of a steamroller" (taking small wins, big losses).
+            - **If Risk Discipline is low (<50%):** IGNORE their question and tell them to start using Stop Losses immediately.
+            - **If Win Rate is low (<40%):** Be encouraging. Tell them to focus on "Market Structure" and not to give up.
+            3. **Tone:** Concise (under 150 words), authoritative, using trading metaphors (e.g., "Market is a battlefield," "Price is truth").
+            """
 
     def _reject_with_humour(self, user_query):
         """

@@ -2,101 +2,152 @@ import requests
 import json
 import time
 import random
+import sys
 
-#  CONFIGURATION 
 BASE_URL = "http://localhost:8000"
-USER_ID = "william"  
+USER_ID = "william"
 
-def print_json(data):
-    """Helper to pretty-print JSON responses"""
+
+def header(title: str):
+    print("\n" + "=" * 60)
+    print(title)
+    print("=" * 60)
+
+
+def dump(data):
     print(json.dumps(data, indent=2))
 
-def step_1_get_dashboard():
-    print(f"\n [STEP 1] Fetching Dashboard for {USER_ID} ")
-    try:
-        response = requests.get(f"{BASE_URL}/dashboard/{USER_ID}")
-        if response.status_code == 200:
-            print("Success! Dashboard Data:")
-            data = response.json()
-            print(f"User Balance: {data['user_info']['balance']}")
-            print(f"Competency: {data['competency_radar']}")
-            # print(f"Stats: {data['performance_summary']}") # Optional
-            print(f"History Count: {len(data['recent_history'])}")
-        else:
-            print(f"Failed: {response.status_code} - {response.text}")
-    except Exception as e:
-        print(f"Connection Error: {e}")
 
-def step_2_simulate_trades():
-    print(f"\n [STEP 2] Simulating 12 Trades (Testing FIFO Limit & Sensei Feedback) ")
-    
-    # We send 12 trades. The first 2 should eventually be DELETED by the backend.
+def assert_ok(cond: bool, msg: str):
+    if cond:
+        print(f"PASS: {msg}")
+    else:
+        print(f"FAIL: {msg}")
+        sys.exit(1)
+
+
+def step_1_health_check():
+    header("STEP 1: HEALTH CHECK")
+    try:
+        res = requests.get(f"{BASE_URL}/health", timeout=5)
+        print("Status Code:", res.status_code)
+        assert_ok(res.status_code == 200, "Server is online")
+    except Exception as e:
+        print("Error:", e)
+        sys.exit(1)
+
+
+def step_2_curriculum_update():
+    header("STEP 2: CURRICULUM UPDATE")
+
+    payload = {
+        "user_id": USER_ID,
+        "chapter_id": "Trading tools"
+    }
+
+    res = requests.post(f"{BASE_URL}/curriculum/complete", json=payload)
+    print("Status Code:", res.status_code)
+
+    data = res.json()
+    dump(data)
+
+    score = data.get("new_competency", {}).get("foundations", 0)
+
+    assert_ok(res.status_code == 200, "Chapter completion accepted")
+    assert_ok(score > 0, f"Foundations score updated ({score})")
+
+
+def step_3_chat():
+    header("STEP 3: CHAT ENDPOINT")
+
+    payload = {
+        "user_id": USER_ID,
+        "query": "What are some tools we can used trading master?",
+        "user_state": {
+            "current_chapter": "Trading tools",
+            "finished_chapters": ["Trading tools"],
+            "unfinished_chapters": [],
+            "win_rate": "0%"
+        }
+    }
+
+    start = time.time()
+    res = requests.post(f"{BASE_URL}/chat", json=payload)
+    latency = round(time.time() - start, 2)
+
+    print("Status Code:", res.status_code)
+    print("Latency:", latency, "seconds")
+
+    data = res.json()
+    dump(data)
+
+    assert_ok(res.status_code == 200, "Chat response received")
+    assert_ok("answer" in data and len(data["answer"]) > 0, "Answer present")
+    assert_ok("sources" in data, "Sources present")
+
+
+def step_4_live_trading():
+    header("STEP 4: LIVE TRADING SIMULATION")
+
     for i in range(1, 13):
-        is_win = random.choice([True, False])
-        entry = random.uniform(60000, 62000)
-        exit_price = entry + 500 if is_win else entry - 300
-        
+        win = random.choice([True, False])
+
         payload = {
             "user_id": USER_ID,
             "asset": "BINANCE:BTCUSDT",
             "side": "Buy",
-            "entry_price": round(entry, 2),
-            "exit_price": round(exit_price, 2),
+            "entry_price": 65000.0,
+            "exit_price": 66000.0 if win else 64000.0,
             "volume": 0.1,
-            "open_time": time.time() - 60,
+            "open_time": time.time() - 120,
             "close_time": time.time(),
-            "stop_loss": round(entry - 500, 2),
-            "take_profit": round(entry + 1000, 2)
+            "stop_loss": 64500.0,
+            "take_profit": 66500.0
         }
 
-        try:
-            res = requests.post(f"{BASE_URL}/trade/close", json=payload)
-            if res.status_code == 200:
-                data = res.json()
-                # FIXED: access 'trade_id' instead of 'message'
-                print(f"Trade #{i} [{data['analysis']['outcome']}] -> ID: {data['trade_id']}")
-                
-                # SHOWCASE: Print the "Sensei Feedback" for the first trade only
-                if i == 1:
-                    print("\n SENSEI SINGLE TRADE ANALYSIS (First Trade) ")
-                    print_json(data['analysis'])
-                    print("-\n")
-            else:
-                print(f"Trade #{i} FAILED: {res.text}")
-        except Exception as e:
-            print(f"Trade #{i} ERROR: {e}")
-            
-        time.sleep(0.1) 
+        res = requests.post(f"{BASE_URL}/trade/close", json=payload)
+        print(f"Trade {i}/12 Status:", res.status_code)
 
-def step_3_verify_results():
-    print(f"\n [STEP 3] Verifying Data Integrity ")
-    response = requests.get(f"{BASE_URL}/dashboard/{USER_ID}")
-    data = response.json()
-    
-    history = data['recent_history']
-    count = len(history)
-    
-    print(f"Total Trades Stored: {count}")
-    
-    if count == 10:
-        print("PASS: Backend successfully limited history to 10 items.")
-    elif count == 12:
-        print("FAIL: Backend stored all 12 trades (FIFO Logic Broken).")
-    else:
-        print(f"WARNING: stored {count} trades.")
+        data = res.json()
 
-    # Check if stats updated
-    stats = data['performance_summary']
-    print("\nUpdated Stats (Check Capital Efficiency & PnL/Sec):")
-    print_json(stats)
+        if i == 1:
+            print("First trade analysis:")
+            dump(data.get("analysis", {}))
+
+        assert_ok(res.status_code == 200, f"Trade {i} processed")
+
+    print("All trades sent")
+
+
+def step_5_dashboard_check():
+    header("STEP 5: DASHBOARD VERIFICATION")
+
+    res = requests.get(f"{BASE_URL}/dashboard/{USER_ID}")
+    print("Status Code:", res.status_code)
+
+    data = res.json()
+    dump(data)
+
+    history = data.get("recent_history", [])
+    stats = data.get("performance_summary", {})
+    radar = data.get("competency_radar", {})
+
+    trade_count = stats.get("number of trades", stats.get("trade_count", 0))
+
+    assert_ok(len(history) == 10, f"FIFO history count is 10 (got {len(history)})")
+    assert_ok(trade_count == 10, f"Stats computed on 10 trades (got {trade_count})")
+    assert_ok(radar.get("risk_management", 0) > 0, "Risk radar score persisted")
+
+
+def main():
+    random.seed(0)
+    step_1_health_check()
+    step_2_curriculum_update()
+    step_3_chat()
+    step_4_live_trading()
+    step_5_dashboard_check()
+    print("\nALL TESTS COMPLETED SUCCESSFULLY")
+
 
 if __name__ == "__main__":
-    try:
-        requests.get(f"{BASE_URL}/health") 
-    except:
-        print("Server not found at localhost:8000. Please run 'server_main.py' first.")
-        exit()
-
-    step_1_get_dashboard()
-    step_2_simulate_trades()
-    step_3_verify_results()
+    main()

@@ -3,24 +3,29 @@
     "username": "William",
     "balance": 10500.0,
     "competency": {
-      "foundations": 33,
+      "foundations": 0,
       "methodology": 0,
-      "indicators": 20,
+      "indicators": 0,
       "risk_management": 0,
       "system_development": 0,
       "analysis_backup": 0
     },
     "performance_summary": {
-      "win_rate": 55.5,
-      "profit_factor": 1.4,
-      "total_trades": 12
+      "number of trades": 10,
+      "total profit and loss": -400.0,
+      "average profit and loss per trade": -40.0,
+      "average trade duration in seconds": 120.0,
+      "average trade notional value": 6500.0,
+      "profit and loss per second": -0.3333,
+      "capital efficiency ratio": -0.006154,
+      "directional accuracy percentage": 30.0,
+      "risk definition rate percentage": 100.0,
+      "reward definition rate percentage": 100.0,
+      "structured trade rate percentage": 100.0
     },
     "learning": {
-      "current_chapter": "Trading structure",
-      "finished_chapters": [
-        "Goals and objectives",
-        "Indicators"
-      ]
+      "current_chapter": "Trading tools",
+      "finished_chapters": []
     }
   }
 }

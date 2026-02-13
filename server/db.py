@@ -56,6 +56,55 @@ class Database:
     def _write_json(self, path, data):
         with open(path, 'w') as f: json.dump(data, f, indent=2)
 
+    def sync_learning_state(self, user_id: str, learning_data: dict):
+        """
+        Updates only the learning progress from the Frontend.
+        Preserves the Competency scores.
+        """
+        data = self._read_json(USER_DB)
+        if user_id not in data:
+            self.create_user(user_id) # ensure user exists
+            data = self._read_json(USER_DB) # reload
+
+        # Update specific fields
+        user_learning = data[user_id]["learning"]
+        user_learning["current_chapter"] = learning_data.get("current_chapter")
+        user_learning["finished_chapters"] = learning_data.get("finished_chapters", [])
+                    
+        self._write_json(USER_DB, data)
+        # Recalculate radar chart since finished_chapters change
+        self.recalculate_competency(user_id)
+
+    def update_performance(self, user_id: str, metrics: dict):
+        """
+        Syncs the calculated analytics back to users.json
+        so the file remains the Single Source of Truth.
+        """
+        data = self._read_json(USER_DB)
+        if user_id in data:
+            # Overwrite the old summary with the fresh math
+            data[user_id]["performance_summary"] = metrics
+            self._write_json(USER_DB, data)
+
+    def mark_chapter_complete(self, user_id, chapter_name):
+        """Adds a chapter to finished list and auto-updates radar chart"""
+        data = self._read_json(USER_DB)
+        if user_id not in data: 
+            return False
+
+        # Init list if missing
+        if "learning" not in data[user_id]:
+            data[user_id]["learning"] = {"finished_chapters": []}
+
+        if chapter_name not in data[user_id]["learning"]["finished_chapters"]:
+            data[user_id]["learning"]["finished_chapters"].append(chapter_name)
+            self._write_json(USER_DB, data)
+            
+            # TRIGGER THE MATH
+            self.recalculate_competency(user_id)
+            return True
+        return False
+
     #  TRADE HISTORY (FIFO LOGIC) 
     def get_raw_trades(self) -> List[Dict]:
         """Returns the raw list of trades for analysis."""

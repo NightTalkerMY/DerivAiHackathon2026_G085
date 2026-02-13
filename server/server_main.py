@@ -77,6 +77,10 @@ class TradePayload(BaseModel):
     stop_loss: Optional[float] = None
     take_profit: Optional[float] = None
 
+class ChapterUpdate(BaseModel):
+    user_id: str
+    chapter_id: str = Field(..., example="Chapter 4: Goals and objectives")
+
 #  GLOBAL STATE 
 ml_models = {}
 
@@ -132,7 +136,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "*"  # Allows all origins (simplest for hackathons)
+        "*"  # Allows all origins
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -144,78 +148,44 @@ app.add_middleware(
 async def chat_endpoint(request: ChatRequest):
     start_time = time.time()
     
-    # 1. VALIDATION: Check if user exists
-    if request.user_id not in users_db:
-        logger.warning(f"Unauthorized access attempt: {request.user_id}")
-        raise HTTPException(
-            status_code=403, 
-            detail=f"User '{request.user_id}' not registered in Sensei DB."
-        )
+    # SYNC LEARNING
+    # Update DB with latest chapter from frontend
+    db.sync_learning_state(request.user_id, {
+        "current_chapter": request.user_state.current_chapter,
+        # We assume /curriculum/complete handles the finished_chapters logic
+    })
 
-    print(f"[{request.user_id}] Query: {request.query}")
+    # GET REAL STATS (The Source of Truth)
+    raw_trades = db.get_user_trades(request.user_id)
+    real_metrics = analyze_batch(raw_trades) 
     
-    try:
-        # 2. STATE UPDATE (New Feature!)
-        # We compare the incoming payload with our DB. If it's newer/different, we update our DB.
-        # This allows the Frontend to say "I finished a chapter!" and the Backend remembers it.
-        
-        current_db_profile = users_db[request.user_id]
-        incoming_state = request.user_state
-        
-        # Check if we need to update the DB (Basic check)
-        users_db[request.user_id] = {
-            "current_chapter": incoming_state.current_chapter,
-            "finished_chapters": incoming_state.finished_chapters,
-            "unfinished_chapters": incoming_state.unfinished_chapters,
-            "win_rate": incoming_state.win_rate
-        }
-        
-        # Save to JSON file immediately so it persists
-        with open(config.USER_DB, "w", encoding="utf-8") as f:
-            json.dump(users_db, f, indent=2)
-            
-        # Use this NEW updated profile for the Brain
-        real_profile = users_db[request.user_id]
+    # 3. RETRIEVE CONTEXT (RAG)
+    tags = ml_models["router"].get_relevant_tags(request.query)
+    context_data = ml_models["rag"].search(request.query, tags=tags)
+    
+    # 4. GENERATE RESPONSE
+    user_profile = db.get_user_profile(request.user_id)
+    
+    brain_state = {
+        "learning_progress": user_profile.get("learning", {}),
+        "trade_metrics": real_metrics 
+    }
 
-        # 3. ROUTING & RAG
-        router = ml_models["router"]
-        rag = ml_models["rag"]
-        brain = ml_models["brain"]
-
-        tags = router.get_relevant_tags(request.query)
-        context_data = rag.search(request.query, tags=tags)
-        
-        # 4. GENERATION
-        state_dict = {
-            "learning_progress": {
-                "current_chapter": real_profile["current_chapter"],
-                "finished_chapters": real_profile["finished_chapters"],
-                "unfinished_chapters": real_profile["unfinished_chapters"]
-            },
-            "trade_metrics": {
-                "win_rate": real_profile["win_rate"]
-            }
-        }
-        
-        response_text = brain.generate_response(
-            user_id=request.user_id,
-            user_query=request.query,
-            rag_context=context_data,
-            user_state=state_dict
-        )
-        
-        latency = (time.time() - start_time) * 1000
-        
-        return ChatResponse(
-            answer=response_text,
-            sources=tags if tags else ["General Logic"],
-            latency_ms=round(latency, 2),
-            context=context_data
-        )
-
-    except Exception as e:
-        logger.error(f"Error processing request: {str(e)}")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    response_text = ml_models["brain"].generate_response(
+        user_id=request.user_id,
+        user_query=request.query,
+        rag_context=context_data,
+        user_state=brain_state
+    )
+    
+    latency = (time.time() - start_time) * 1000
+    
+    return ChatResponse(
+        answer=response_text,
+        sources=tags if tags else ["General Logic"],
+        latency_ms=round(latency, 2),
+        context=context_data
+    )
 
 @app.get("/health")
 async def health_check():
@@ -260,6 +230,15 @@ async def record_closed_trade(trade: TradePayload):
     
     # Save to DB
     db.add_trade(user_id, trade_dict)
+
+    # Fetch all trades (including the new one)
+    all_trades = db.get_user_trades(user_id)
+    
+    # Calculate fresh stats
+    fresh_metrics = analyze_batch(all_trades)
+    
+    # Save to DB (This fixes your issue!)
+    db.update_performance(user_id, fresh_metrics)
     
     # Run Single Analysis IMMEDIATELY
     # This prepares the data for the frontend to show the "After-Action Review"
@@ -270,6 +249,34 @@ async def record_closed_trade(trade: TradePayload):
         "trade_id": trade_dict["trade_id"],
         "analysis": analysis 
     }
+
+@app.post("/curriculum/complete")
+async def complete_chapter(payload: ChapterUpdate):
+    """
+    The 'Level Up' Endpoint.
+    1. Marks a chapter as finished.
+    2. Recalculates the specific Competency Axis (e.g. Foundations).
+    3. Returns the new Radar Chart data for the frontend to animate.
+    """
+    # Update DB (This marks it done AND recalculates the score in db.py)
+    success = db.mark_chapter_complete(payload.user_id, payload.chapter_id)
+    
+    if not success:
+        # This usually means user doesn't exist or chapter already done
+        pass
+
+    # Fetch the fresh profile with the new scores
+    user_profile = db.get_user_profile(payload.user_id)
+    
+    return {
+        "status": "success",
+        "message": f"Chapter '{payload.chapter_id}' marked as complete.",
+        "new_competency": user_profile.get("competency", {}),
+        "finished_chapters": user_profile["learning"].get("finished_chapters", [])
+    }
+
+
+
 
 #  ENTRY POINT 
 if __name__ == "__main__":
