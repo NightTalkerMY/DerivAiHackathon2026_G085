@@ -64,13 +64,16 @@ def main():
     # 3. LIVE TRADE - OPEN POSITION (PRE-FLIGHT)
     # Frontend Component: TradeExecution.tsx (Buy Button Click)
     # ---------------------------------------------------------
-    print_step_header(3, "LIVE TRADE: OPEN POSITION (PRE-FLIGHT CHECK)")
+    print_step_header(3, "LIVE TRADE: OPEN POSITION (AI CO-PILOT CHECK)")
     
     endpoint = "/trade/open"
+    
+    # We MUST send 'volume' now so the GenAI can analyze risk (e.g. Gambling detection)
     payload = {
         "user_id": USER_ID,
         "asset": "BTCUSDT",
-        "side": "buy"
+        "side": "buy",
+        "volume": 1 
     }
     
     res = requests.post(f"{BASE_URL}{endpoint}", json=payload)
@@ -144,7 +147,7 @@ def main():
     endpoint = "/curriculum/complete"
     payload = {
         "user_id": USER_ID,
-        "chapter_id": "Trading style"
+        "chapter_id": "Volume"
     }
     
     res = requests.post(f"{BASE_URL}{endpoint}", json=payload)

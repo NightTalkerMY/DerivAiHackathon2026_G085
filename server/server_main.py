@@ -87,7 +87,8 @@ class CurriculumAskRequest(BaseModel):
 class TradeOpenPayload(BaseModel):
     user_id: str
     asset: str
-    side: str # "buy" or "sell"
+    side: str 
+    volume: float
 
 #  GLOBAL STATE 
 ml_models = {}
@@ -236,6 +237,16 @@ async def record_closed_trade(trade: TradePayload):
     
     # Generate Unique Trade ID (Critical for Single Analysis)
     trade_dict["trade_id"] = str(uuid.uuid4())[:8] # Short 8-char ID
+
+    ### New Fix Here: We now save into trades.json ###
+    # This ensures 'profit_and_loss' exists in the DB for brain.py to read later
+    price_delta = trade_dict["exit_price"] - trade_dict["entry_price"]
+    if trade_dict["side"].lower() == "sell":
+        price_delta = -price_delta
+    
+    # Save into the dictionary
+    trade_dict["profit_and_loss"] = price_delta * trade_dict["volume"]
+    ### New Fix Ends Here
     
     # Save to DB
     db.add_trade(user_id, trade_dict)
@@ -304,6 +315,19 @@ async def open_trade_feedback(payload: TradeOpenPayload):
     LiveTrade: Open Position Event.
     Triggers 'Pre-Flight Check' overlay.
     """
+
+    # This gives a better insight for the chatbot
+    history = db.get_user_trades(payload.user_id)
+    last_trade_time = history[-1]["close_time"] if history else 0
+    time_diff = int(time.time() - last_trade_time)
+    print(time_diff)
+    proposed_trade = {
+        "asset": payload.asset,
+        "side": payload.side,
+        "volume": payload.volume,
+        "time_since_last": time_diff
+    }
+
     # Synthesize Query (e.g. "Trading rules for XAUUSD")
     synthetic_query = ml_models["synthesizer"].generate_synthetic_query(
         event_type="trade_open",
@@ -312,11 +336,11 @@ async def open_trade_feedback(payload: TradeOpenPayload):
     
     # RAG Search
     rag_context = ml_models["rag"].search(synthetic_query, top_k_retrieval=1)
-    
+
     # Brain Analysis (Co-Pilot)
-    feedback = ml_models["brain"].analyze_trade_entry(
-        asset=payload.asset,
-        side=payload.side,
+    feedback = ml_models["brain"].analyze_pre_trade_risk(
+        user_history=history,
+        proposed_trade=proposed_trade,
         rag_context=rag_context
     )
     

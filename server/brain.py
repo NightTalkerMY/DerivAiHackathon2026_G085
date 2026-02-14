@@ -16,27 +16,116 @@ class SenseiBrain:
         # Load existing history from JSON file
         self.user_memories = self._load_history_from_disk()
 
-    def analyze_trade_entry(self, asset, side, rag_context):
+    # def analyze_trade_entry(self, asset, side, rag_context):
+    #     """
+    #     Provides immediate feedback when a user OPENS a trade.
+    #     """
+    #     system_instruction = f"""
+    #     You are "The Sensei". The student is about to enter a {side.upper()} position on {asset}.
+        
+    #     REFERENCE INTEL:
+    #     {rag_context['text'] if rag_context else 'General Market Wisdom'}
+        
+    #     TASK:
+    #     Give a 1-sentence warning or tip.
+    #     Speak as a strict mentor watching their student step onto the battlefield.
+    #     Focus on what typically goes wrong with this specific asset or setup.
+    #     """
+        
+    #     response = self.client.chat(
+    #         user_input=f"I am entering {side} on {asset}. What should I watch out for?",
+    #         system_instruction=system_instruction
+    #     )
+    #     return response
+
+    def analyze_pre_trade_risk(self, user_history, proposed_trade, rag_context):
         """
-        Provides immediate feedback when a user OPENS a trade.
+        True Generative Analysis.
+        Adaptively analyzes risk based on available history (0 to 3+ trades).
         """
+        
+        # --- 1. SAFE RAG EXTRACTION ---
+        rag_text = "No specific reference intel available."
+        if rag_context and isinstance(rag_context, dict):
+            rag_text = rag_context.get('text', rag_text)
+        
+        # --- 2. ADAPTIVE HISTORY FORMATTING ---
+        # Gracefully handle None or empty lists
+        available_history = user_history if user_history else []
+        
+        # Slice the last 3, but Python handles it if len < 3 (e.g. returns 1 or 0 items)
+        recent_trades = available_history[-3:] 
+        
+        history_str = ""
+        if not recent_trades:
+            history_str = "• No prior trades (New User / First Trade of Session)"
+        else:
+            # We iterate in reverse to show the most recent first
+            for i, t in enumerate(reversed(recent_trades)):
+                # Safe PnL Calculation (Fixes your KeyError)
+                pnl = t.get('profit_and_loss')
+                if pnl is None:
+                    # Fallback calc
+                    entry = t.get('entry_price', 0)
+                    exit_price = t.get('exit_price', 0)
+                    vol = t.get('volume', 0)
+                    side = t.get('side', 'buy').lower()
+                    price_delta = exit_price - entry
+                    if side == 'sell': price_delta = -price_delta
+                    pnl = price_delta * vol
+                
+                outcome = "WIN" if pnl > 0 else "LOSS"
+                # Format: "Trade -1 (Last One): ..."
+                history_str += f"Trade -{i+1}: {t.get('side')} {t.get('asset')} (Vol: {t.get('volume')}) -> Result: {outcome} (${pnl:.2f})\n"
+
+        # --- 3. ADAPTIVE SYSTEM PROMPT ---
+        # We explicitly tell the AI how to handle the "New User" vs "Veteran" case
         system_instruction = f"""
-        You are "The Sensei". The student is about to enter a {side.upper()} position on {asset}.
+        You are "The Sensei", an expert trading psychologist.
         
-        REFERENCE INTEL:
-        {rag_context['text'] if rag_context else 'General Market Wisdom'}
+        YOUR GOAL:
+        Analyze the user's *intent* and *mental state* before they open this new trade.
         
-        TASK:
-        Give a 1-sentence warning or tip.
-        Speak as a strict mentor watching their student step onto the battlefield.
-        Focus on what typically goes wrong with this specific asset or setup.
+        === DATA STREAM ===
+        [User's Recent History]
+        {history_str}
+        
+        [Proposed Trade Action]
+        Asset: {proposed_trade['asset']}
+        Side: {proposed_trade['side']}
+        Volume: {proposed_trade['volume']}
+        Time since last trade: {proposed_trade['time_since_last']} seconds
+        
+        === ANALYSIS PROTOCOL ===
+        
+        SCENARIO A: NO HISTORY (First Trade)
+        - If the history says "No prior trades", be welcoming but sharp.
+        - Say: "Fresh start. Eyes open."
+        - Give a strategic tip for {proposed_trade['asset']} based on the Reference Intel.
+        
+        SCENARIO B: HISTORY EXISTS
+        - Compare the 'Proposed Trade' Volume to the 'Recent History'.
+        - **Gambling Check:** Is the new volume 2x larger than the last loss? (Martingale?)
+        - **Revenge Check:** Is the time gap < 120 seconds after a loss?
+        - **Tilt Check:** Are they on a 3-trade losing streak?
+        
+        === OUTPUT RULES ===
+        1. If DANGER detected (Scenario B): 
+           - Start with "WARNING:" 
+           - Explain the psychological trap clearly.
+        
+        2. If NORMAL (Scenario A or Safe B): 
+           - Do NOT use a prefix.
+           - Just give a concise, strategic tip for the asset.
+        
+        REFERENCE INTEL (RAG):
+        {rag_text}
         """
-        
-        response = self.client.chat(
-            user_input=f"I am entering {side} on {asset}. What should I watch out for?",
+
+        return self.client.chat(
+            user_input="I am about to take this trade. Scan for psychological risks.",
             system_instruction=system_instruction
         )
-        return response
 
     def recommend_next_module(self, trade_analysis, curriculum_list):
             """
