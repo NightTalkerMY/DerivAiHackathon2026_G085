@@ -63,6 +63,17 @@ class Database:
         for cat, ch_list in CURRICULUM.items():
             chapters.extend(ch_list)
         return chapters
+    
+    def get_finished_chapters(self, user_id: str) -> List[str]:
+        """
+        Lightweight lookup for the frontend to render checkmarks.
+        Returns empty list if user or data is missing.
+        """
+        data = self._read_json(USER_DB)
+
+        if user_id in data:
+            return data[user_id].get("learning", {}).get("finished_chapters", [])
+        return []
 
     def sync_learning_state(self, user_id: str, learning_data: dict):
         """

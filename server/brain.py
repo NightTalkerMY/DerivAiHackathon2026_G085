@@ -128,54 +128,74 @@ class SenseiBrain:
         )
 
     def recommend_next_module(self, trade_analysis, curriculum_list):
-            """
-            Analyzes the trade outcome and picks the BEST chapter from the list.
-            """
-            curriculum_str = ", ".join(curriculum_list)
-            
-            system_instruction = f"""
-            You are "The Sensei". You must assign the student's next lesson based on their recent performance.
-            
-            AVAILABLE SCROLLS (MODULES):
-            [{curriculum_str}]
-            
-            TASK:
-            Based on the student's recent trade, pick ONE module they must study next.
-            
-            RULES:
-            1. Return ONLY a JSON object: {{"module": "Exact Module Name", "reason": "Strict, personalized explanation"}}
-            2. The "reason" MUST reference the specific ASSET and the MISTAKE.
-            - Bad Example: "You need to study risk."
-            - Good Example: "You longed XAUUSD without a shield (Stop Loss) and paid the price. Review risk protocols immediately."
-            3. If the trade was a LOSS, pick a module related to the mistake.
-            4. The "module" value MUST match one of the Available Scrolls exactly.
-            """
-            
-            # We pass the NEW personalized details here
-            user_input = f"""
-            Asset Traded: {trade_analysis.get('asset')}
-            Position: {trade_analysis.get('side')}
-            Trade Outcome: {trade_analysis['trade outcome']}
-            PnL: ${trade_analysis['profit and loss']}
-            Risk Defined (Stop Loss): {trade_analysis['risk is defined']}
-            """
-
-            response = self.client.chat(
-                user_input=user_input,
-                system_instruction=system_instruction
-            )
-            
-            try:
-                clean_text = response.replace("```json", "").replace("```", "").strip()
-                return json.loads(clean_text)
-            except:
-                return {"module": "Trading performance and analysis", "reason": "Review your discipline."}
+        """
+        Analyzes the trade outcome and picks TOP 1-3 chapters from the list.
+        """
+        # Flatten the list for the prompt so the LLM sees all options
+        curriculum_str = ", ".join(curriculum_list) 
         
+        system_instruction = f"""
+        You are "The Sensei". You are analyzing a student's recent trade to assign a study plan.
+        
+        AVAILABLE SCROLLS (MODULES):
+        [{curriculum_str}]
+        
+        TASK:
+        Analyze the trade and identify **up to 3** relevant modules to fix their behavior. 
+        
+        RULES:
+        1. Return ONLY a valid JSON object with this EXACT structure:
+           {{
+             "recommendations": [
+                {{"module": "Exact Module Name", "reason": "Specific explanation..."}},
+                {{"module": "Exact Module Name", "reason": "Specific explanation..."}}
+             ]
+           }}
+        2. The "module" value MUST match one of the Available Scrolls exactly.
+        """
+        
+        # PRO TIP: You need to pass more context if you want it to recommend 'Indicators'.
+        # If the LLM doesn't know WHY they entered, it can't blame the indicator.
+        # I added 'Entry Logic' to the input below as an example.
+        user_input = f"""
+        Asset Traded: {trade_analysis.get('asset')}
+        Position: {trade_analysis.get('side')}
+        Trade Outcome: {trade_analysis.get('trade outcome')}
+        PnL: ${trade_analysis.get('profit and loss')}
+        Risk Defined (Stop Loss): {trade_analysis.get('risk is defined')}
+        Entry Logic/Notes: {trade_analysis.get('entry_notes', 'Not provided')} 
+        """
 
-    def generate_dashboard_summary(self, user_stats, rag_context, recent_event_desc):
+        response = self.client.chat(
+            user_input=user_input,
+            system_instruction=system_instruction
+        )
+        
+        try:
+            # Clean up potential markdown formatting from the LLM
+            clean_text = response.replace("```json", "").replace("```", "").strip()
+            data = json.loads(clean_text)
+            
+            # Return the list of recommendations
+            return data.get("recommendations", [])
+            
+        except json.JSONDecodeError:
+            # Fallback if JSON fails
+            return [{
+                "module": "Trading performance and analysis", 
+                "type": "Fallback",
+                "reason": "Sensei could not parse the trade data. Review discipline."
+            }]
+
+    def generate_dashboard_summary(self, user_stats, rag_context, recent_event_desc, competency_snapshot=None, gap_analysis=None):
         """
         Generates a concise, high-level summary for the Dashboard UI.
+        Now includes Competency (Theory) vs Performance (Reality) analysis.
         """
+        # Handle defaults if arguments are missing
+        competency_snapshot = competency_snapshot or {}
+        gap_analysis = gap_analysis or "Reviewing general performance."
+
         system_instruction = f"""
         You are "The Sensei".
         
@@ -183,14 +203,21 @@ class SenseiBrain:
         
         INPUT CONTEXT:
         1. Recent Event: {recent_event_desc}
-        2. Reference Knowledge: {rag_context['text'] if rag_context else 'General Wisdom'}
-        3. Student Stats: WinRate {user_stats.get('directional accuracy percentage', 'N/A')}%, PnL ${user_stats.get('total profit and loss', 'N/A')}
+        2. Insight/Gap Analysis: {gap_analysis}
+        3. Reference Knowledge: {rag_context['text'] if rag_context else 'General Wisdom'}
+        
+        STUDENT PROFILE:
+        - Win Rate: {user_stats.get('directional accuracy percentage', 'N/A')}%
+        - Total PnL: ${user_stats.get('total profit and loss', 'N/A')}
+        - Risk Management Knowledge: {competency_snapshot.get('risk_management', 0)}/100
+        - Methodology Knowledge: {competency_snapshot.get('methodology', 0)}/100
         
         GUIDELINES:
         - Be insightful, authoritative, and concise.
-        - Connect their recent action (Event) to the educational concept (Reference).
-        - If they just lost money, be encouraging but firm about the lesson.
-        - If they just finished a module, congratulate them and link it to their stats.
+        - **CRITICAL:** Look at the 'Insight/Gap Analysis'. 
+            - If it says "Discipline Issue" (High Knowledge, Low Execution), scold them gently: "You know better than this."
+            - If it says "Knowledge Gap" (Low Knowledge, Low Execution), guide them: "You are trading blindly. Study the module."
+        - Connect their recent stats to the educational concept (Reference).
         """
 
         response = self.client.chat(
@@ -230,15 +257,11 @@ class SenseiBrain:
         Orchestrates the Sensei's response generation with PERSISTENT MEMORY.
         """
         
-        # 1. Check for "Out of Scope" (Strict guardrail)
         if not rag_context:
             return self._reject_with_humour(user_query)
 
-        # 2. Retrieve history for this specific User
-        # We need to convert the stored JSON dicts back into Google's 'types.Content' objects
         raw_history = self.user_memories.get(user_id, [])
         
-        # Convert JSON -> Gemini Object
         gemini_history = []
         for turn in raw_history:
             gemini_history.append(types.Content(
@@ -246,25 +269,28 @@ class SenseiBrain:
                 parts=[types.Part(text=turn["text"])]
             ))
 
-        # 3. Build Input
-        system_instruction = self._build_system_prompt(user_state)
-        
-        # We combine context + query here so it appears as one user block
+        clean_query = user_query.lower().strip()
+        is_highlight = "explain this" in clean_query or "explain:" in clean_query
+
+        # if is_highlight:
+        #     display_query = user_query.replace('Can you explain this: "', '').rstrip('"?')
+        # else:
+        #     display_query = user_query
+
+        # --- KEY CHANGE: Passing clean_query to prompt builder ---
+        system_instruction = self._build_system_prompt(user_state, is_highlight, clean_query)
+
         full_input = (
             f"REFERENCE CONTEXT:\n{rag_context['text']}\n\n"
-            f"USER QUESTION:\n{user_query}"
+            f"USER QUESTION:\n{user_query}" 
         )
         
-        # 4. Send to Gemini
-        # Note: We pass the reconstructed gemini_history
         response_text = self.client.chat(
             user_input=full_input,
             history=gemini_history, 
             system_instruction=system_instruction
         )
         
-        # 5. UPDATE MEMORY & SAVE TO DISK
-        # Append the new interaction to our local state
         new_user_turn = {"role": "user", "text": full_input}
         new_model_turn = {"role": "model", "text": response_text}
         
@@ -274,7 +300,6 @@ class SenseiBrain:
         self.user_memories[user_id].append(new_user_turn)
         self.user_memories[user_id].append(new_model_turn)
         
-        # Sync to JSON file immediately
         self._save_history_to_disk()
         
         return response_text
@@ -299,52 +324,71 @@ class SenseiBrain:
         except Exception as e:
             print(f"[System] Failed to save history: {e}")
 
-    def _build_system_prompt(self, user_state):
+    def _build_system_prompt(self, user_state, is_highlight, user_query):
         """
         Dynamically builds the prompt based on user progress.
-        UPDATED: Matches the verbose keys from analytics.py
+        Handles Intent Detection to HIDE stats if the user is just asking a question.
         """
-        metrics = user_state.get('trade_metrics', {})
-        
-        # Extract using YOUR specific keys
-        # We default to 0 or "N/A" if the user has no trades yet
-        
-        win_rate = metrics.get("directional accuracy percentage", "N/A")
-        total_pnl = metrics.get("total profit and loss", "N/A")
-        trade_count = metrics.get("number of trades", 0)
-        avg_pnl = metrics.get("average profit and loss per trade", "N/A")
-        
-        # Only grab these if they exist (to avoid errors on empty state)
-        risk_rate = metrics.get("risk definition rate percentage", "N/A")
+        # --- 1. DETECT INTENT MANUALLY ---
+        # If server.py says it's a highlight, OR if we see common question patterns
+        is_knowledge_query = is_highlight or any(k in user_query for k in [
+            "what is", "define", "explain", "how do", "tell me about", "mean by", "concept of"
+        ])
 
+        metrics = user_state.get('trade_metrics', {})
         progress = user_state.get('learning_progress', {})
         current = progress.get('current_chapter', 'Unknown')
         
-        finished_list = progress.get('finished_chapters', [])
-        finished_str = ", ".join(finished_list) if finished_list else "None"
-        
-        unfinished_list = progress.get('unfinished_chapters', [])
-        unfinished_str = ", ".join(unfinished_list) if unfinished_list else "None"
-        
+        # --- 2. BRANCHING LOGIC FOR STATS VISIBILITY ---
+        if is_knowledge_query:
+            # HIDE STATS SO AI CANNOT CRITIQUE THEM
+            student_profile = f"""
+            • Current Lesson:    {current}
+            • Mode:              KNOWLEDGE ACQUISITION (Stats Hidden)
+            """
+            
+            instructions = """
+            PRIORITY: PURE TEACHING
+            1. The user is asking a definition or concept question.
+            2. Answer ONLY using the REFERENCE CONTEXT provided.
+            3. Do NOT reference their trading stats (they are hidden).
+            4. Be concise and wise.
+            """
+        else:
+            # SHOW STATS FOR GENERAL CHAT / REVIEW
+            win_rate = metrics.get("directional accuracy percentage", "N/A")
+            total_pnl = metrics.get("total profit and loss", "N/A")
+            
+            student_profile = f"""
+            • Current Lesson:    {current}
+            • Win Rate:          {win_rate}%
+            • Total PnL:         ${total_pnl}
+            """
+            
+            instructions = f"""
+            PRIORITY: GENERAL MENTORSHIP
+            
+            1. FIRST: Answer the user's specific text input.
+            
+            2. SECOND (PERFORMANCE CHECK):
+               - Your Win Rate is {win_rate}% and PnL is ${total_pnl}.
+               - IF AND ONLY IF the user asks "How am I doing?" or "Review me":
+                 - Critique the high win rate / low PnL anomaly ("picking up pennies").
+               - OTHERWISE: Keep silent about the stats.
+            """
+
         return f"""
         You are "The Sensei", a wise, slightly strict, but caring trading mentor.
         
         === STUDENT PROFILE ===
-        • Current Lesson:    {current}
-        • Win Rate:          {win_rate}%
-        • Total PnL:         ${total_pnl}
-        • Avg PnL/Trade:     ${avg_pnl}
-        • Total Trades:      {trade_count}
-        • Risk Discipline:   {risk_rate}% (How often they use Stop Losses)
-        • Completed Modules: [{finished_str}]
+        {student_profile}
         
         === INSTRUCTIONS ===
-        1. **Source of Truth:** Answer using ONLY the provided REFERENCE CONTEXT.
-        2. **Contextual Coaching:**
-        - **If Win Rate is high (>60%) but Avg PnL is negative:** SCOLD them! Tell them they are "picking up pennies in front of a steamroller" (taking small wins, big losses).
-        - **If Risk Discipline is low (<50%):** IGNORE their question and tell them to start using Stop Losses immediately.
-        - **If Win Rate is low (<40%):** Be encouraging. Tell them to focus on "Market Structure" and not to give up.
-        3. **Tone:** Concise (under 150 words), authoritative, using trading metaphors (e.g., "Market is a battlefield," "Price is truth").
+        {instructions}
+        
+        === STYLE GUIDE ===
+        - Tone: Wise, authoritative, concise (under 140 words).
+        - Source of Truth: Use ONLY the provided REFERENCE CONTEXT for definitions.
         """
 
     def _reject_with_humour(self, user_query):

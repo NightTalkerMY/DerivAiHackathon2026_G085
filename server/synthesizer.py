@@ -58,6 +58,11 @@ class QuerySynthesizer:
             TASK: Extract the CORE TRADING CONCEPT from the highlighted text.
             Convert it into a search query to find the definition and examples.
             """
+            
+        elif event_type == "dashboard_refresh":
+            topic = data.get("focus_topic", "general trading improvement")
+            return f"How to improve {topic} in trading?"
+        
         else:
             return "general trading principles"
 
