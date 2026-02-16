@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Event_Driven-009688?style=flat&logo=fastapi&logoColor=white)
 ![Google Gemini](https://img.shields.io/badge/AI_Brain-Gemini_2.5_Flash_Lite-4285F4?style=flat&logo=google&logoColor=white)
-![Groq](https://img.shields.io/badge/Synthesizer-Groq_OSS_120B-f55036?style=flat)
+![Groq](https://img.shields.io/badge/Synthesizer-GPT_OSS_120B-f55036?style=flat)
 ![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-cc2b5e?style=flat)
 
 **The Adaptive Trading Dojo V2** is a proactive, event-driven backend for personalized trading education. It moves beyond standard chatbots by using a **Query Synthesizer** to automatically translate user actions (like losing a trade or highlighting text) into targeted educational retrieval.
