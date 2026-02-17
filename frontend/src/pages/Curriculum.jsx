@@ -162,43 +162,44 @@ export default function Curriculum() {
   const userId = "william"; 
 
   const loadCurriculumData = useCallback(async (showRefreshing = false) => {
-    if (showRefreshing) {
-      setIsRefreshing(true);
-    } else {
-      setIsLoading(true);
-    }
+    if (showRefreshing) setIsRefreshing(true);
+    else setIsLoading(true);
     setError(null);
     
     try {
-      // Fetch dashboard data (includes recommendations)
+      // 1. Fetch Dashboard Data
       const dashboardData = await fetchDashboard(userId);
       setRecommendedStudy(dashboardData.recommended_study);
 
-      // Fetch curriculum status from backend (includes finished chapters from users.json)
+      // 2. Fetch Curriculum Status
       try {
         const curriculumStatus = await fetchCurriculumStatus(userId);
         const backendFinishedChapters = curriculumStatus.finished_chapters || [];
         
-        // Also get localStorage as backup/additional
-        const localFinishedChapters = JSON.parse(localStorage.getItem(`finishedChapters_${userId}`)) || [];
+        // --- FIX STARTS HERE ---
         
-        // Merge both lists (backend takes priority, localStorage as backup)
-        const mergedChapters = [...new Set([...backendFinishedChapters, ...localFinishedChapters])];
+        // OLD BUGGY WAY: Merging Backend + Local (Resurrects deleted data)
+        // const mergedChapters = [...new Set([...backendFinishedChapters, ...localFinishedChapters])];
+
+        // NEW CORRECT WAY: Backend is the "Source of Truth"
+        // If backend says we have 0 chapters, we have 0 chapters.
+        setFinishedChapters(backendFinishedChapters);
         
-        // Update localStorage to stay in sync
-        localStorage.setItem(`finishedChapters_${userId}`, JSON.stringify(mergedChapters));
+        // Force Local Storage to match Backend (this clears old local data)
+        localStorage.setItem(`finishedChapters_${userId}`, JSON.stringify(backendFinishedChapters));
         
-        setFinishedChapters(mergedChapters);
+        // --- FIX ENDS HERE ---
+
       } catch (curriculumErr) {
-        // Fallback to localStorage if curriculum status fails
-        console.warn("Failed to fetch curriculum status, using localStorage:", curriculumErr);
+        console.warn("Backend failed, falling back to Local Storage:", curriculumErr);
+        // Only use Local Storage if the Backend actually FAILS
         const localFinishedChapters = JSON.parse(localStorage.getItem(`finishedChapters_${userId}`)) || [];
         setFinishedChapters(localFinishedChapters);
       }
 
     } catch (err) {
       console.error("Failed to load curriculum data:", err);
-      setError("Failed to load curriculum data. Please try again.");
+      setError("Failed to load curriculum data.");
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
