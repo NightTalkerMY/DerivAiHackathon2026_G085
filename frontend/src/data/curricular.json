@@ -1,0 +1,1297 @@
+{
+  "source": "curricular.txt",
+  "items": [
+    {
+      "chapter": {
+        "number": 4,
+        "title": "Goals and objectives",
+        "part": {
+          "title": "Trading plan: the foundations"
+        }
+      },
+      "lesson": {
+        "content": [
+          "The first part of a trading plan is not charts or indicators — it’s purpose. This is where trading stops being a gamble and starts becoming a business. Your goals and objectives define why you trade, what you are trying to achieve, and how you will measure success. Without this, every trade becomes emotional, reactive, and directionless.",
+          "Many traders skip this step because it feels abstract or uncomfortable. But this section sets the foundation for everything that follows. When markets turn against you — and they will — this is the part of your trading plan that brings you back to clarity. Successful traders treat their trading plan like a business plan, and every strong business begins with a clear vision.",
+          "Start by asking yourself a simple but powerful question: Why am I trading? Yes, wealth creation is part of it — but rarely the whole story. Maybe it’s independence, flexibility, control over your decisions, or the challenge of mastering a skill. Your answer should be personal and motivating, something that still matters when losses pile up and confidence is shaken.",
+          "Next, move from vision to goals. Goals turn motivation into direction. They define what skills you need to develop, how you will approach the market, how you manage risk, and what consistency looks like for you. Trading is a game of probabilities — sometimes you win, sometimes you lose — but long-term success comes from managing losses better than wins, not avoiding losses altogether.",
+          "An essential part of goal setting is identifying your trading edge. If most traders fail, the real question is: what makes you different? Your edge might be your strategy, your discipline, your risk management, or your ability to stay emotionally neutral under pressure. Knowing your strengths — and your weaknesses — allows you to refine your approach and improve performance over time.",
+          "Finally, define your trading returns and objectives realistically. As a beginner, the first objective is survival — protecting capital long enough to learn. Profit comes later. Instead of chasing unrealistic returns, focus on benchmarks: preserving capital, outperforming low-risk alternatives, and eventually beating a market index. Consistency matters far more than speed.",
+          "A clear set of goals and objectives gives your trading meaning. It transforms random actions into intentional decisions — and intention is what separates traders who last from those who disappear."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why are goals important in a trading plan?",
+          "answer": "They provide direction, focus, and a way to measure progress and success."
+        },
+        {
+          "question": "What is the main purpose of a trading vision statement?",
+          "answer": "To define why you trade and keep you motivated during difficult periods."
+        },
+        {
+          "question": "Why do most traders fail despite having strategies?",
+          "answer": "Lack of discipline, poor risk management, and unclear objectives."
+        },
+        {
+          "question": "What is a trading edge?",
+          "answer": "The unique advantage that improves your chances of long-term success."
+        },
+        {
+          "question": "Can emotional control be a trading edge?",
+          "answer": "Yes — discipline and emotional stability are powerful competitive advantages."
+        },
+        {
+          "question": "What should a beginner trader’s first objective be?",
+          "answer": "Capital preservation and survival."
+        },
+        {
+          "question": "Why is aiming for extremely high returns dangerous?",
+          "answer": "It increases emotional pressure and leads to poor decision-making."
+        },
+        {
+          "question": "What is a realistic way to measure trading performance?",
+          "answer": "Comparing returns against low-risk benchmarks or market indices."
+        }
+      ],
+      "key_points": [
+        "Trading without goals is trading without direction",
+        "A trading plan starts with why, not charts",
+        "Clear goals reduce emotional decision-making",
+        "Losses are unavoidable — survival is the first win",
+        "Your trading edge defines your long-term potential",
+        "Discipline and risk control matter more than prediction",
+        "Realistic objectives outperform unrealistic ambition",
+        "Goals should evolve as your skill and experience grow"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 5,
+        "title": "Trading structure",
+        "part": {
+          "title": "Trading plan: the foundations"
+        }
+      },
+      "lesson": {
+        "content": [
+          "As trading becomes more serious, one of the first major decisions you must make is how to structure your trading activity. At this point, trading stops being a hobby and starts being treated as a business. The structure you choose determines how you are taxed, how your assets are protected, how profits are distributed, and how complex your obligations will be.",
+          "There is no single “best” trading structure. The right choice depends entirely on your personal circumstances, capital size, risk tolerance, and long-term objectives. Many traders start simple and evolve over time. What matters most is choosing a structure that fits your current needs while remaining flexible enough to change as your trading grows.",
+          "Common trading structures include operating as a sole trader, partnership, company, trust, or self-managed superannuation fund (SMSF). Each structure has its own advantages and disadvantages in terms of cost, legal responsibility, taxation, and administrative burden. Simpler structures offer flexibility and low costs but provide little asset protection. More complex structures may offer tax efficiency and protection but come with higher costs and responsibilities.",
+          "When deciding on a trading structure, you must consider practical factors such as setup costs, ongoing administration, accounting requirements, tax obligations, asset protection, and legal liability. You also need to think about how income will be paid to you, how funds are allocated for trading, and how the structure would be closed or changed in the future.",
+          "Because this decision can have long-term financial and legal consequences, professional advice is essential. A good accountant will assess your personal tax situation, capital size, income expectations, family circumstances, risk exposure, and long-term goals before recommending a structure. This is not a decision to rush or make based on cost alone.",
+          "The goal of a trading structure is not complexity — it is suitability. A well-chosen structure supports your trading business, protects you where possible, and allows you to focus on execution rather than administration. As your experience, confidence, and profitability grow, your structure can evolve alongside your trading plan."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why is trading structure an important decision?",
+          "answer": "It affects taxation, asset protection, legal liability, and how trading profits are managed."
+        },
+        {
+          "question": "Is there a single best trading structure for all traders?",
+          "answer": "No — the best structure depends on personal circumstances and objectives."
+        },
+        {
+          "question": "Why do many traders start with a simple structure?",
+          "answer": "Lower costs, fewer obligations, and greater flexibility."
+        },
+        {
+          "question": "What is a key disadvantage of simple trading structures?",
+          "answer": "Limited asset protection and higher personal liability."
+        },
+        {
+          "question": "Why should professional advice be sought when choosing a structure?",
+          "answer": "Because the decision has long-term financial and legal consequences."
+        },
+        {
+          "question": "Can a trading structure be changed later?",
+          "answer": "Yes — many traders evolve their structure as their trading grows."
+        },
+        {
+          "question": "What factors influence the choice of trading structure?",
+          "answer": "Capital size, tax situation, risk exposure, income needs, and long-term goals."
+        },
+        {
+          "question": "What is the main purpose of a trading structure?",
+          "answer": "To support the trading business efficiently and appropriately."
+        }
+      ],
+      "key_points": [
+        "Trading structure turns trading into a business",
+        "There is no one-size-fits-all structure",
+        "Structure affects tax, risk, and responsibility",
+        "Simple structures offer flexibility but little protection",
+        "Complex structures offer protection but higher costs",
+        "Personal circumstances drive the right choice",
+        "Professional advice is essential",
+        "Trading structures can evolve over time"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 6,
+        "title": "Trading tools",
+        "part": {
+          "title": "Trading plan: the foundations"
+        }
+      },
+      "lesson": {
+        "content": [
+          "To trade the markets effectively, you need the right tools. Trading is a business, and like any business, it requires equipment, systems, and reliable information. While long-term investors may only need basic access to prices and a broker, active traders rely on a broader toolkit to analyse markets, manage risk, and execute decisions consistently.",
+          "At the core of every trader’s setup is a reliable computer. Trading decisions often depend on technical analysis, charting, scanning markets, and managing records. Your computer must be capable of running trading software smoothly and handling large amounts of data without slowing you down. Choosing up-to-date hardware with sufficient processing power and memory ensures your tools remain effective as software evolves.",
+          "Software is where analysis happens. Charting platforms allow traders to study price movements, apply indicators, and identify opportunities. These platforms vary in flexibility. Some offer full customisation, allowing traders to design their own indicators and scans. Others are more restricted, limiting what can be changed. While fully automated “black box” systems may appear attractive, they often fail because traders don’t understand or trust the logic behind them. Tools should support your thinking, not replace it.",
+          "Accurate data is just as important as software. Poor-quality price data leads to poor decisions. A good data provider delivers clean, reliable information and allows you to organise markets into meaningful groups. Depending on your trading style, you may use intraday data, end-of-day data, or next-day data. The key is matching data speed and cost to how and when you make decisions.",
+          "Modern traders also benefit from mobility. Mobile phones and portable devices allow you to monitor positions, receive alerts, and manage risk when you are away from your desk. While mobile tools should not replace careful analysis, they provide flexibility and peace of mind, especially when managing open trades.",
+          "Information sources must be chosen carefully. Too much information can be just as harmful as too little. Newsletters, websites, magazines, and broker resources can all provide value, but traders must learn to filter noise from useful insight. The goal is to stay informed without becoming reactive or distracted.",
+          "Finally, education is a lifelong tool. Markets evolve, and traders must evolve with them. Building a personal trading library, learning from reputable sources, and continuously refining your skills should be part of your trading routine. The right tools support good decisions — but discipline, understanding, and experience make those tools effective."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why are trading tools important?",
+          "answer": "They support analysis, decision-making, execution, and risk management."
+        },
+        {
+          "question": "What is the most basic tool every trader needs?",
+          "answer": "A reliable computer capable of running trading software."
+        },
+        {
+          "question": "Why is software choice important?",
+          "answer": "It determines how effectively you can analyse markets and develop strategies."
+        },
+        {
+          "question": "What is the risk of using black box trading systems?",
+          "answer": "You lack understanding and control over how decisions are made."
+        },
+        {
+          "question": "Why is data quality critical in trading?",
+          "answer": "Inaccurate data leads to inaccurate analysis and poor decisions."
+        },
+        {
+          "question": "How should data frequency be chosen?",
+          "answer": "Based on your trading style and when you make decisions."
+        },
+        {
+          "question": "What role do mobile devices play in trading?",
+          "answer": "Monitoring positions, receiving alerts, and managing risk remotely."
+        },
+        {
+          "question": "Why is continuous education essential for traders?",
+          "answer": "Markets change, and traders must adapt to remain effective."
+        }
+      ],
+      "key_points": [
+        "Trading tools support trading decisions",
+        "A reliable computer is essential",
+        "Software enables analysis and strategy development",
+        "Data quality matters more than data speed",
+        "Tools should support understanding, not replace it",
+        "Mobile access adds flexibility and control",
+        "Too much information creates noise",
+        "Education is a long-term trading tool"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 7,
+        "title": "Trading style",
+        "part": {
+          "title": "Trading plan: methodology"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Choosing a trading style is one of the most important decisions you will make in your trading plan. Your trading style defines how often you trade, how long you hold positions, and how much time and attention trading will demand from your daily life. There is no “correct” style — the best style is the one that fits your personality, lifestyle, and psychological makeup.",
+          "Trading styles generally fall into three categories: short-term, medium-term, and long-term. Short-term trading focuses on quick price movements over minutes or days and requires frequent monitoring of the market. Medium-term trading involves holding positions for weeks or months, capturing swings within broader trends. Long-term trading, often referred to as investing, involves holding positions for months or years to benefit from major trends and compounding gains.",
+          "Each style comes with trade-offs. Short-term trading offers frequent opportunities but demands intense focus, fast decision-making, and emotional resilience. Medium-term trading reduces screen time and stress but still requires discipline to manage clusters of losses and market noise. Long-term trading is the least time-consuming and most cost-effective, but it requires patience, a larger capital base, and the ability to sit through market fluctuations without reacting emotionally.",
+          "Your available time is a major factor in determining your style. Some traders can dedicate most of the trading day to monitoring markets, while others can only review charts in the evening or a few times a week. Trying to trade a style that does not match your time availability almost always leads to frustration and poor decisions.",
+          "Equally important is understanding your psychological tolerance. Some traders thrive in fast-paced environments, while others become stressed or impulsive when decisions need to be made quickly. Knowing when to stop trading for the day, handle losing streaks, and avoid overtrading is critical — especially for short- and medium-term traders.",
+          "There is no rush to trade actively. Many successful traders begin with a longer-term approach to build confidence and understanding, then gradually introduce shorter-term systems as their skills develop. Markets will always be there. The objective is not to trade more, but to trade in a way that is sustainable, consistent, and aligned with who you are.",
+          "Once you have chosen a trading style that suits you, it should be documented clearly in your trading plan. This creates structure, reduces second-guessing, and ensures that your decisions remain consistent even when emotions are high."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is a trading style?",
+          "answer": "It defines how often you trade, how long you hold positions, and how actively you monitor the market."
+        },
+        {
+          "question": "Is there a “best” trading style?",
+          "answer": "No — the best style is the one that suits your personality and lifestyle."
+        },
+        {
+          "question": "What is a key requirement of short-term trading?",
+          "answer": "Frequent market monitoring and fast decision-making."
+        },
+        {
+          "question": "Why does medium-term trading suit many part-time traders?",
+          "answer": "It requires less screen time and allows decisions to be made outside market hours."
+        },
+        {
+          "question": "What is the main advantage of long-term trading?",
+          "answer": "Lower stress, lower costs, and less frequent decision-making."
+        },
+        {
+          "question": "Why is psychology important when choosing a trading style?",
+          "answer": "Different styles place different emotional and mental demands on the trader."
+        },
+        {
+          "question": "Can trading styles change over time?",
+          "answer": "Yes — traders often evolve their style as experience and confidence grow."
+        },
+        {
+          "question": "Why should trading style be documented in a trading plan?",
+          "answer": "To maintain consistency and reduce emotional decision-making."
+        }
+      ],
+      "key_points": [
+        "Trading style defines how you trade",
+        "There is no right or wrong trading style",
+        "Time availability influences trading style",
+        "Psychology matters as much as strategy",
+        "Short-term trading is demanding and intense",
+        "Medium-term trading balances activity and flexibility",
+        "Long-term trading prioritises patience and consistency",
+        "Trading style can evolve over time"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 8,
+        "title": "Trading instruments",
+        "part": {
+          "title": "Trading plan: methodology"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Choosing the right trading instrument is just as important as choosing your trading style. A trading instrument is the vehicle through which you express your market view, and different instruments behave very differently. Your choice determines how much monitoring is required, how risk is managed, how capital is used, and how flexible your trading approach can be.",
+          "Trading instruments include shares, contracts for difference (CFDs), options, and warrants. Each instrument has its own characteristics, advantages, and limitations. Some are suited to long-term investing, while others are designed for short-term trading and active management. Because of this, your instrument choice must align closely with your trading style and the time you can realistically commit to the markets.",
+          "Shares are the most straightforward instrument. When you buy shares, you own a portion of a company and can hold it for as long as the company remains listed. Shares suit all trading styles, particularly medium- and long-term trading, and offer benefits such as dividends and voting rights. However, they require a larger capital base to diversify effectively and carry the risk of company failure.",
+          "CFDs allow traders to speculate on price movements without owning the underlying asset. They mirror the performance of shares, indices, currencies, or commodities and offer leverage, making them attractive for short- and medium-term traders. While CFDs provide flexibility and access to global markets, leverage amplifies both gains and losses, and holding positions overnight incurs interest costs.",
+          "Options are derivative instruments that give traders the right, but not the obligation, to buy or sell an asset at a fixed price by a certain date. They are highly leveraged and have expiry dates, making them most suitable for short-term trading. Options offer multiple strategies and limited risk for buyers, but they are complex, require close monitoring, and can expire worthless if not managed properly.",
+          "Warrants are similar to options but are issued by financial institutions and traded on the exchange like shares. They are leveraged instruments with defined expiry dates and limited risk. Warrants tend to have lower brokerage costs and tighter spreads than options, but they offer fewer choices and require education to understand their pricing and behaviour.",
+          "Beyond the instrument itself, you must decide which market to trade. Some traders focus solely on domestic markets, while others trade internationally. Global markets offer more opportunities but may require trading outside normal hours, particularly for short-term traders. Liquidity, ease of entry and exit, and familiarity with the market are critical considerations.",
+          "There is no right or wrong instrument. The best choice is the one that fits your trading style, capital base, risk tolerance, and lifestyle. Once chosen, your instruments should be clearly documented in your trading plan and reviewed regularly as your trading develops."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is a trading instrument?",
+          "answer": "An asset or contract that can be traded to express a market view."
+        },
+        {
+          "question": "Why must trading instruments match trading style?",
+          "answer": "Different instruments require different levels of monitoring, capital, and risk management."
+        },
+        {
+          "question": "What is a key advantage of trading shares?",
+          "answer": "Long-term holding, dividends, and simplicity."
+        },
+        {
+          "question": "What is the main risk when trading CFDs?",
+          "answer": "Leverage can magnify losses and interest applies to overnight positions."
+        },
+        {
+          "question": "Why are options considered complex instruments?",
+          "answer": "They involve expiry dates, volatility, and multiple pricing components."
+        },
+        {
+          "question": "What limits risk when buying options or warrants?",
+          "answer": "The maximum loss is limited to the price paid."
+        },
+        {
+          "question": "Why does market selection matter?",
+          "answer": "Liquidity, trading hours, and ease of execution affect performance."
+        },
+        {
+          "question": "Should trading instruments stay fixed forever?",
+          "answer": "No — they can evolve as trading experience grows."
+        }
+      ],
+      "key_points": [
+        "Trading instruments express market decisions",
+        "Instrument choice must match trading style",
+        "Shares suit medium- and long-term trading",
+        "CFDs offer flexibility but increase risk through leverage",
+        "Options and warrants are short-term, leveraged instruments",
+        "Each instrument has unique costs and obligations",
+        "Market selection affects liquidity and time commitment",
+        "Instrument choice should be documented and reviewed"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 9,
+        "title": "Indicators",
+        "part": {
+          "title": "Trading plan: indicators"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Indicators are tools that help you interpret market data and support your trading decisions. There are many indicators available for both fundamental and technical analysis, and one of the most important tasks for a trader is deciding which indicators to use — and just as importantly, which ones to ignore. Too many indicators can confuse rather than clarify.",
+          "Indicators generally fall into two broad groups: fundamental and technical. Fundamental indicators are based on company financial information such as earnings, dividends, and valuation ratios. These indicators are most commonly used by long-term investors who are focused on value, income, and growth potential over time. Technical indicators, on the other hand, are calculated from price and sometimes volume data and are plotted directly onto charts.",
+          "You may choose to use only one type of indicator, or combine both fundamental and technical indicators. There is no right or wrong approach. What matters is consistency. Once you decide how you analyse the market, your indicators should support that method and form part of your trading rules.",
+          "Technical indicators can be grouped into categories based on what they measure. Trend indicators help identify the direction of the market. Momentum indicators measure the speed of price movement. Volatility indicators show how much price fluctuates. Market strength indicators, often volume-based, help confirm whether a move is supported by participation. Understanding what each category measures is more important than memorising individual indicators.",
+          "A common mistake traders make is using too many indicators at once. Indicators are not perfect and will sometimes fail. When several indicators conflict, decision-making becomes difficult and hesitation increases. Many experienced traders eventually simplify their approach and focus on raw price data, supported by one carefully chosen indicator from each category.",
+          "Indicators should assist your thinking, not replace it. The goal is not to predict the market perfectly, but to build a structured, repeatable decision process. Once you have selected your indicators, document them clearly in your trading plan and use them consistently as part of your trading rules."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is the purpose of trading indicators?",
+          "answer": "To support analysis and assist in making trading decisions."
+        },
+        {
+          "question": "What are the two main types of indicators?",
+          "answer": "Fundamental indicators and technical indicators."
+        },
+        {
+          "question": "Who typically uses fundamental indicators?",
+          "answer": "Long-term investors focused on value, income, and growth."
+        },
+        {
+          "question": "What data are technical indicators based on?",
+          "answer": "Price data and sometimes volume data."
+        },
+        {
+          "question": "Why should indicators be grouped by category?",
+          "answer": "Each category measures a different aspect of market behaviour."
+        },
+        {
+          "question": "What is a common mistake when using indicators?",
+          "answer": "Using too many indicators and creating conflicting signals."
+        },
+        {
+          "question": "Are indicators always accurate?",
+          "answer": "No — indicators can fail and should not be relied on blindly."
+        },
+        {
+          "question": "How should indicators be used effectively?",
+          "answer": "As part of a structured and consistent trading plan."
+        }
+      ],
+      "key_points": [
+        "Indicators support decision-making",
+        "Too many indicators create confusion",
+        "Fundamental indicators suit long-term analysis",
+        "Technical indicators are based on price and volume",
+        "Each indicator category measures something different",
+        "Simplicity improves consistency",
+        "Indicators assist thinking, not replace it",
+        "Selected indicators should be documented"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 10,
+        "title": "Moving averages",
+        "part": {
+          "title": "Trading plan: indicators"
+        }
+      },
+      "lesson": {
+        "content": [
+          "A moving average (MA) is one of the most widely used technical indicators and serves a simple but powerful purpose: helping you understand the direction of the trend. It does this by smoothing price data, reducing noise, and allowing you to focus on the underlying market movement rather than short-term fluctuations.",
+          "A moving average is calculated by averaging closing prices over a selected period and plotting that value on the chart. As new price data comes in, the average updates and moves along with the price. Shorter moving averages react faster to price changes, while longer moving averages move more slowly and provide a broader view of the trend.",
+          "There are three main types of moving averages. The simple moving average (SMA) gives equal weight to all prices in the selected period and reacts slowly to changes. The exponential moving average (EMA) gives more weight to recent prices and responds faster to new information. The weighted moving average reacts even faster by heavily weighting recent prices, but this speed can also produce false signals. There is no universally “best” type — many traders prefer the EMA as a balance between responsiveness and reliability.",
+          "The timeframe of a moving average is just as important as its type. Shorter timeframes track price closely but can be overly sensitive. Longer timeframes smooth price movement and help confirm major trends but respond slowly. The timeframe you choose should match your trading style. Short-term traders typically use fast moving averages, medium-term traders use moderate timeframes, and long-term traders rely on much slower averages.",
+          "Moving averages can be used on their own or in combination. A single moving average can act as dynamic support or resistance and help confirm whether a market is trending up, down, or sideways. When used in combination, a faster moving average and a slower one can generate signals through crossovers. A fast MA crossing above a slow MA suggests a potential uptrend, while crossing below suggests a possible downtrend.",
+          "Moving average signals work best in trending markets. In sideways or choppy conditions, crossovers can occur frequently and lead to false signals. In these situations, it is better to rely on broader context such as support and resistance and wait for clearer conditions.",
+          "Moving averages do not predict the future. They help you stay aligned with the trend and avoid fighting the market. Used consistently and in the right context, they provide a simple, effective framework for trend-following decisions."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is the purpose of a moving average?",
+          "answer": "To smooth price data and help identify the direction of the trend."
+        },
+        {
+          "question": "What does a shorter moving average do?",
+          "answer": "Reacts faster to price changes but produces more noise."
+        },
+        {
+          "question": "What is the main difference between SMA and EMA?",
+          "answer": "EMA gives more weight to recent prices and reacts faster."
+        },
+        {
+          "question": "Why do many traders prefer EMAs?",
+          "answer": "They balance responsiveness with smoother signals."
+        },
+        {
+          "question": "How should MA timeframe be chosen?",
+          "answer": "Based on your trading style and holding period."
+        },
+        {
+          "question": "What does a fast MA crossing above a slow MA suggest?",
+          "answer": "A potential shift into an uptrend."
+        },
+        {
+          "question": "When are moving averages least reliable?",
+          "answer": "In sideways or non-trending markets."
+        },
+        {
+          "question": "Do moving averages predict price movements?",
+          "answer": "No — they help confirm trend direction."
+        }
+      ],
+      "key_points": [
+        "Moving averages smooth price movement",
+        "MA type and timeframe both matter",
+        "Short MAs are fast but noisy",
+        "Long MAs are slower and smoother",
+        "EMAs balance speed and reliability",
+        "Single MAs confirm trend direction",
+        "MA crossovers signal potential trend changes",
+        "Moving averages work best in trending markets"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 11,
+        "title": "MACD histogram",
+        "part": {
+          "title": "Trading plan: indicators"
+        }
+      },
+      "lesson": {
+        "content": [
+          "The MACD histogram is a momentum indicator derived from the MACD indicator and is used to confirm the strength of a trend and warn of potential changes. While the MACD line itself provides crossover signals similar to moving averages, the histogram offers deeper insight into how strong or weak a trend really is.",
+          "To understand the histogram, it helps to first understand the MACD. MACD stands for moving average convergence/divergence. It is calculated using two exponential moving averages (EMAs). The solid MACD line is produced by subtracting a longer-term EMA from a shorter-term EMA, while the dashed signal line is a moving average of the MACD line itself. Crossovers between these two lines generate buy and sell signals, much like moving average crossovers.",
+          "The MACD histogram is created by taking the difference between the MACD line and the signal line and plotting it as vertical bars above or below a zero line. When the MACD line is above the signal line, the histogram is positive and plotted above zero. When the MACD line is below the signal line, the histogram is negative and plotted below zero. When the two lines meet, the histogram returns to zero.",
+          "As the distance between the MACD line and the signal line increases, the histogram bars grow taller or deeper. This indicates increasing momentum in the direction of the trend. When the bars begin to shrink, momentum is slowing, even if price is still moving in the same direction. This change in momentum often appears before a change in price.",
+          "One of the most powerful uses of the MACD histogram is trend confirmation. In a healthy uptrend, both price and the histogram tend to make higher highs. In a strong downtrend, both tend to make lower lows. When this relationship breaks down, it can signal weakening momentum.",
+          "This leads to the concept of divergence. Divergence occurs when price and the histogram move in opposite directions. Bearish divergence appears when price makes a higher high but the histogram fails to do so, suggesting an uptrend may be weakening. Bullish divergence appears when price makes a lower low but the histogram does not, suggesting selling pressure may be fading.",
+          "It is important to understand that divergence is an early warning, not a guarantee. Signals can and do fail. When divergence appears but price continues to move in the same direction, it indicates strong underlying momentum. Like all indicators, the MACD histogram should be used as part of a broader trading framework, not in isolation."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is the MACD histogram used for?",
+          "answer": "Confirming trend strength and warning of potential changes in momentum."
+        },
+        {
+          "question": "How is the MACD histogram calculated?",
+          "answer": "By plotting the difference between the MACD line and the signal line."
+        },
+        {
+          "question": "What does a positive histogram indicate?",
+          "answer": "The MACD line is above the signal line and momentum is positive."
+        },
+        {
+          "question": "What does a shrinking histogram suggest?",
+          "answer": "Momentum is weakening, even if price is still moving in the same direction."
+        },
+        {
+          "question": "What is divergence?",
+          "answer": "When price and the indicator move in opposite directions."
+        },
+        {
+          "question": "What is bearish divergence?",
+          "answer": "Price makes a higher high but the histogram does not."
+        },
+        {
+          "question": "What is bullish divergence?",
+          "answer": "Price makes a lower low but the histogram does not."
+        },
+        {
+          "question": "Are MACD histogram signals always accurate?",
+          "answer": "No — signals can fail and should be confirmed with other analysis."
+        }
+      ],
+      "key_points": [
+        "MACD histogram measures momentum",
+        "It is derived from the MACD indicator",
+        "Histogram size reflects momentum strength",
+        "Shrinking bars warn of weakening trends",
+        "Divergence signals potential trend changes",
+        "Bullish and bearish divergence occur at extremes",
+        "Signals are early warnings, not guarantees",
+        "MACD histogram works best with confirmation"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 12,
+        "title": "Average true range",
+        "part": {
+          "title": "Trading plan: indicators"
+        }
+      },
+      "lesson": {
+        "content": [
+          "The average true range (ATR) is a volatility indicator that measures how much a price typically moves over a given period. Instead of telling you direction, the ATR tells you movement size. It answers a practical question every trader needs to know: how far can this price reasonably move in a day or over a set period?",
+          "The ATR is calculated by looking at price ranges and averaging them over a selected number of periods, most commonly 14. It considers not just the distance between the high and low of the current period, but also gaps from the previous close. This makes it especially useful in markets where prices can jump between sessions.",
+          "Because the ATR measures volatility, it helps traders understand the “personality” of an instrument. A low ATR suggests a relatively calm price that moves in small increments. A high ATR indicates a more volatile instrument capable of larger daily moves. Two shares priced at the same level can behave very differently, and the ATR highlights that difference clearly.",
+          "The ATR value should always be viewed in context. Thinking of ATR as a percentage of price makes it easier to interpret. For example, an ATR of 0.30 on a $10 share suggests an average daily move of about 3 per cent, while an ATR of 0.65 on the same-priced share suggests much higher volatility. This information is critical when deciding position size and risk.",
+          "One of the most practical uses of the ATR is in setting stop losses. Rather than placing stops at arbitrary distances, traders can use a multiple of the ATR to allow the trade enough room to move naturally. Tighter multiples suit short-term trading, while wider multiples suit medium- and long-term trading. This approach adapts risk management to current market conditions instead of relying on fixed rules.",
+          "The ATR changes over time as volatility expands and contracts. Rising ATR values signal increasing market activity, while falling values indicate quieter conditions. Used consistently, the ATR helps traders align position size, stop placement, and expectations with real market behaviour rather than emotion."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What does the ATR measure?",
+          "answer": "The average size of price movement over a given period."
+        },
+        {
+          "question": "Does the ATR indicate trend direction?",
+          "answer": "No — it measures volatility, not direction."
+        },
+        {
+          "question": "What is the most common default ATR setting?",
+          "answer": "14 periods."
+        },
+        {
+          "question": "Why does ATR include gaps from the previous close?",
+          "answer": "To capture true market movement, including overnight gaps."
+        },
+        {
+          "question": "How can ATR be interpreted more clearly?",
+          "answer": "As a percentage of the share price."
+        },
+        {
+          "question": "Why is ATR useful for setting stop losses?",
+          "answer": "It adapts stop distance to current volatility."
+        },
+        {
+          "question": "What does a rising ATR indicate?",
+          "answer": "Increasing volatility and price movement."
+        },
+        {
+          "question": "Should ATR be used alone?",
+          "answer": "No — it works best alongside trend and entry tools."
+        }
+      ],
+      "key_points": [
+        "ATR measures volatility, not direction",
+        "It reflects average price movement",
+        "Default ATR setting is 14 periods",
+        "ATR reveals an instrument’s personality",
+        "Higher ATR means greater volatility",
+        "ATR helps set adaptive stop losses",
+        "Stop distance should match trading style",
+        "ATR values change as market conditions change"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 13,
+        "title": "Volume",
+        "part": {
+          "title": "Trading plan: indicators"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Volume measures the number of shares or contracts that change hands during a trading period. It is usually displayed as a histogram at the bottom of a price chart, with taller bars representing higher trading activity. While price tells you what the market is doing, volume helps explain how strongly it is doing it.",
+          "Volume is closely linked to liquidity. Highly liquid instruments have many buyers and sellers at each price level, making it easier to enter and exit trades without significantly affecting price. Illiquid instruments, on the other hand, can be difficult to trade because small orders may move price sharply. For this reason, many traders prefer instruments with consistently high volume.",
+          "One of the most important uses of volume is trend confirmation. In a healthy uptrend, volume tends to increase as prices rise and decrease on pullbacks. This behaviour suggests strong participation from buyers and supports the continuation of the trend. In downtrends, increasing volume on falling prices indicates strong selling pressure. While this is a general guideline rather than a rule, it provides valuable insight into market strength.",
+          "Volume is also a key tool for identifying breakouts. When price moves sideways in a trading range, volume often contracts as buyers and sellers reach equilibrium. A breakout accompanied by a sharp increase in volume suggests that new participants are entering the market and that the move is more likely to be sustained. Breakouts on low volume are more prone to failure.",
+          "Volume does not generate precise entry or exit signals on its own. Instead, it acts as a confirmation tool, helping traders assess the quality of price movements. When used alongside trend analysis, support and resistance, and other indicators, volume provides context and confidence behind trading decisions.",
+          "Understanding volume allows traders to focus on markets where participation is strong and price movement is meaningful. It reinforces the principle that price moves backed by commitment are more reliable than moves driven by low activity."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What does volume measure?",
+          "answer": "The number of shares or contracts traded during a period."
+        },
+        {
+          "question": "How is volume typically displayed on a chart?",
+          "answer": "As a histogram at the bottom of the chart."
+        },
+        {
+          "question": "What does high volume usually indicate?",
+          "answer": "Strong participation and higher liquidity."
+        },
+        {
+          "question": "Why is liquidity important for traders?",
+          "answer": "It makes entering and exiting trades easier and more efficient."
+        },
+        {
+          "question": "How does volume help confirm trends?",
+          "answer": "Rising volume with rising prices supports trend strength."
+        },
+        {
+          "question": "What happens to volume during price consolidation?",
+          "answer": "It often decreases as buyers and sellers reach equilibrium."
+        },
+        {
+          "question": "Why is volume important during breakouts?",
+          "answer": "High volume confirms that the breakout has participation and strength."
+        },
+        {
+          "question": "Should volume be used alone for trading decisions?",
+          "answer": "No — it works best as a confirmation tool."
+        }
+      ],
+      "key_points": [
+        "Volume measures market participation",
+        "High volume improves liquidity",
+        "Volume confirms trend strength",
+        "Rising prices with rising volume support trends",
+        "Low volume signals weak conviction",
+        "Breakouts need volume confirmation",
+        "Volume provides context, not signals",
+        "Volume strengthens price-based analysis"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 14,
+        "title": "Risk and money management",
+        "part": {
+          "title": "Trading plan: risk management"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Risk and money management are the most critical components of a successful trading plan. Before focusing on entries, indicators, or strategies, a trader must understand that survival in the market depends on controlling losses. Even a poorly timed entry can still lead to long-term success if strict money management rules are followed consistently.",
+          "Most traders believe success comes from picking the right stock or timing the perfect entry. In reality, profitable trading is driven by managing downside risk. Systems with random entries can still be profitable when paired with disciplined exits and proper position sizing. The core principle is simple: let profits run and cut losses short.",
+          "Because markets are unpredictable, traders cannot control price movement — but they can control risk. Long-term success depends on limiting losses so that winning trades remain larger than losing ones. Holding onto losing positions in hope is one of the fastest ways to destroy trading capital. Some stocks never recover, making loss control essential.",
+          "Effective risk management begins with defining total trading capital. This is the amount of money allocated exclusively for trading and used to determine position sizes. Capital allocation should then be planned across different systems, timeframes, and market segments, ensuring exposure aligns with liquidity and risk tolerance.",
+          "Another key consideration is the number of open positions. Traders must determine how many trades they can comfortably manage without emotional stress. If trading causes anxiety or disrupts sleep, risk exposure is likely too high and should be reduced.",
+          "Position sizing is the foundation of money management. It answers the question of how many shares to buy while keeping risk controlled. Two common approaches are the equal portions model and the percentage risk model. While equal portions are simple, they assume all trades carry equal risk. The percentage risk model adjusts position size based on stop-loss distance, ensuring that no single trade risks more than a predefined portion of total capital.",
+          "Professional traders also limit maximum position size to prevent overexposure. A common rule is that no single position should exceed 25 percent of total capital. This ensures diversification and protects the portfolio from concentrated losses.",
+          "Portfolio heat manages total open risk across all positions. It represents the worst-case loss if all open trades hit their stops simultaneously. By capping portfolio heat, traders prevent excessive exposure during periods of high activity and maintain long-term capital preservation.",
+          "Money management does not eliminate losses — losses are inevitable. However, disciplined risk control ensures that losses are survivable and that traders remain in the game long enough for skill and consistency to develop."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why is money management more important than entries?",
+          "answer": "It controls losses and determines long-term survival."
+        },
+        {
+          "question": "What is the golden rule of trading?",
+          "answer": "Let profits run and cut losses short."
+        },
+        {
+          "question": "What is total trading capital?",
+          "answer": "The amount of money allocated specifically for trading."
+        },
+        {
+          "question": "What is position sizing?",
+          "answer": "Determining how many shares to buy based on risk."
+        },
+        {
+          "question": "What does the percentage risk model limit?",
+          "answer": "The maximum loss on any single trade."
+        },
+        {
+          "question": "Why should maximum position size be capped?",
+          "answer": "To prevent overexposure and concentrate risk."
+        },
+        {
+          "question": "What is portfolio heat?",
+          "answer": "Total open risk if all positions hit their stops."
+        },
+        {
+          "question": "Can profitable trading exist without high win rates?",
+          "answer": "Yes — if losses are controlled and profits are larger."
+        }
+      ],
+      "key_points": [
+        "Risk management determines survival",
+        "Losses are inevitable — ruin is optional",
+        "Control risk, not markets",
+        "Position sizing limits damage per trade",
+        "Percentage risk models adapt to volatility",
+        "Maximum position size prevents concentration risk",
+        "Portfolio heat controls total exposure",
+        "Discipline beats prediction over time"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 15,
+        "title": "Stop losses",
+        "part": {
+          "title": "Trading plan: risk management"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Many novice traders focus almost entirely on entries — trying to pick the perfect stock or the perfect moment to buy. In reality, entries are only a small part of successful trading. What determines long-term success is how you manage the trade after entry and, most importantly, how you exit. This is where stop losses come in.",
+          "A stop loss is a capital preservation tool designed to protect you when the market moves against you. Its primary purpose is not to avoid losses — losses are inevitable — but to keep them small and controlled. A stop loss also plays a critical role in protecting profits once a trade begins to move in your favour. For this reason, a trade should never be entered without first defining a stop loss.",
+          "Professional traders use stops in stages. Every trade begins with an initial stop loss to limit downside risk. As the trade moves favourably, this stop is raised to breakeven to remove risk. Eventually, the stop becomes a trailing profit stop, allowing profits to grow while still providing protection. This structured approach removes emotion and replaces it with discipline.",
+          "The initial stop loss is the most important stop you will ever place. It defines the worst-case outcome of a trade and is used to calculate position size. Although being stopped out produces a loss, it protects your trading capital from catastrophic damage. Traders survive by exiting losing trades early and staying with winners longer.",
+          "Initial stops can be set using different methods. Some traders use a fixed percentage retracement, others rely on chart-based methods such as trendlines or technical indicators. Volatility-based stops, such as multiples of the Average True Range (ATR), adjust to the personality of the stock and are widely used because they account for changing market conditions.",
+          "Once a trade moves in your favour, the initial stop should be raised to breakeven. This eliminates the possibility of a losing trade and protects capital. From there, the focus shifts from survival to profit protection. A trailing profit stop is used to lock in gains while allowing the trade room to continue trending.",
+          "Trailing stops can be managed using percentage retracements, trendlines, technical indicators, or volatility measures. Each method has strengths and weaknesses, and the best choice depends on trading style and timeframe. The key is consistency — once a method is selected, it must be applied without hesitation.",
+          "In addition to price-based stops, traders may use time stops, profit targets, or psychological stops. Time stops prevent capital from being tied up in stagnant trades. Profit stops aim to capture windfall gains but can limit long-term performance if used incorrectly. Psychological stops recognise that life events, stress, or losing streaks can impair decision-making and justify stepping away from the market.",
+          "Stops can be executed automatically through a broker or managed manually. Automatic stops remove emotion and reduce the risk of hesitation, while manual stops require discipline and constant monitoring. Regardless of the method, slippage can occur, and traders must accept this as part of the cost of trading.",
+          "Stop losses are not optional. They are the foundation of risk control and the difference between survival and failure. Successful traders understand that exits — not entries — are the true secret to consistent profitability."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is the main purpose of a stop loss?",
+          "answer": "To limit losses and protect trading capital."
+        },
+        {
+          "question": "When should a stop loss be set?",
+          "answer": "Before entering a trade."
+        },
+        {
+          "question": "What is an initial stop loss?",
+          "answer": "The worst-case exit point used to limit risk and size positions."
+        },
+        {
+          "question": "What does a breakeven stop achieve?",
+          "answer": "It removes risk by ensuring a no-loss trade."
+        },
+        {
+          "question": "What is a trailing profit stop?",
+          "answer": "A stop that locks in profits as price moves favourably."
+        },
+        {
+          "question": "Why are volatility-based stops popular?",
+          "answer": "They adjust to the stock’s natural price movement."
+        },
+        {
+          "question": "What is a time stop?",
+          "answer": "An exit based on how long a trade fails to perform."
+        },
+        {
+          "question": "Why are exits harder than entries?",
+          "answer": "They require discipline under emotional pressure."
+        }
+      ],
+      "key_points": [
+        "Entries do not determine success — exits do",
+        "Never enter a trade without a stop loss",
+        "Initial stops define worst-case risk",
+        "Breakeven stops protect capital",
+        "Trailing stops protect profits",
+        "Volatility-based stops adapt to market conditions",
+        "Profit targets can limit long-term gains",
+        "Discipline in exits separates winners from losers"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 16,
+        "title": "Market exposure guidelines",
+        "part": {
+          "title": "Trading plan: risk management"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Trading will test you. Even with a solid plan, there will be periods where the market turns ugly or you hit a cluster of losses. What matters is not avoiding these moments — it’s having a pre-planned response so you don’t react emotionally and sabotage your account.",
+          "Losses are part of the business. Every trade becomes either a winner or a loser, and even strong traders may only win about half the time. The traders who fail are not the ones who take losses — they are the ones who lose control during a losing streak. When losses stack up, emotions spike. Many people start “revenge trading,” increasing position size or doubling down to win it back fast. That mindset can turn a normal drawdown into a disaster.",
+          "So your plan needs a clear “cluster-of-losses protocol.” Decide in advance: when you will stop trading, whether you will step away to review your psychology, and how you will reduce exposure when confidence is shaken. A common recovery approach is to halve position size and re-enter slowly, only scaling back up when discipline and clarity return. Your goal during these phases is survival: protect capital, break even where possible, and avoid any single decision that can put you out of the game.",
+          "You also need a time-out strategy for real life. Stressful life events — holidays, moving house, illness, family emergencies, burnout — reduce your ability to execute rules cleanly. The market doesn’t care what’s happening in your life, but your performance will. Pre-plan what you will do with open trades during these periods. This might mean pausing short-term trading, relying only on longer-term systems, tightening risk, or ensuring automatic stop losses are active. If needed, step away completely. The market will still be there when you return.",
+          "Market conditions also change. Bull markets are generally easier: prices rise, and long positions tend to work well. Bear markets are different — they can be sharp, fast, and psychologically brutal. In a bear market, hope is expensive. Your plan must define what you will do when conditions shift: reduce exposure, exit long positions strictly by stops, and decide whether you will sit out or use strategies designed for falling markets.",
+          "To profit in a bear market, traders may “go short” — selling first and buying back later at a lower price. Short selling has extra complexity: margin requirements, borrowing rules, and dividend implications if a stock goes ex-dividend while you’re short (you may be required to pay the dividend to the lender). Because short selling isn’t as common for many investors, some choose to avoid it entirely and simply stay out until the market becomes healthier again.",
+          "In the end, your money management rules are what keep you alive in all environments. If your risk per trade and portfolio heat are controlled, a cluster of losses becomes a manageable setback — not a career-ending event. The purpose of this section is simple: decide your exposure plan before the pressure hits."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why do traders often self-sabotage during losing streaks?",
+          "answer": "Emotions rise and they try to “win it back” with bigger risks."
+        },
+        {
+          "question": "What is a cluster-of-losses protocol?",
+          "answer": "A pre-planned set of rules for reducing risk, pausing, and resetting after losses."
+        },
+        {
+          "question": "What is one common way to re-enter after a losing streak?",
+          "answer": "Halve position size and scale up only when confidence and discipline return."
+        },
+        {
+          "question": "Why do you need a time-out strategy?",
+          "answer": "Life events can reduce focus and increase the chance of breaking rules."
+        },
+        {
+          "question": "What is the difference between a bull and bear market?",
+          "answer": "Bull = rising market; Bear = falling market."
+        },
+        {
+          "question": "What does it mean to go “short”?",
+          "answer": "Sell first, then buy back later at a lower price to profit."
+        },
+        {
+          "question": "What are two choices in a bear market for many traders?",
+          "answer": "Exit long trades via stops and sit out, or exit longs and start short selling."
+        },
+        {
+          "question": "What makes bear markets dangerous?",
+          "answer": "They can fall fast, trigger panic, and erase profits quickly."
+        }
+      ],
+      "key_points": [
+        "Losses are inevitable — uncontrolled losses are fatal",
+        "Plan your response to a losing streak before it happens",
+        "Reduce exposure when emotions are high",
+        "Halving position size is a safe way to regain rhythm",
+        "Life events require a time-out plan",
+        "Bull markets reward long trades; bear markets punish hope",
+        "In bear markets: either sit out or use short strategies",
+        "Money management keeps you alive in all market conditions"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 17,
+        "title": "The trading system",
+        "part": {
+          "title": "Trading plan: system development"
+        }
+      },
+      "lesson": {
+        "content": [
+          "At this point, all the building blocks are finally in place. You have defined your trading style, selected the instruments you will trade, and chosen the indicators you trust. Now the focus shifts from theory to structure — this is where everything comes together into a trading system.",
+          "A trading system is simply a clear, repeatable set of rules that tells you what to trade, when to trade, and how to trade it. It removes guesswork and replaces emotion with logic. Without a system, trading becomes reactive. With a system, trading becomes a process.",
+          "Your system can be discretionary or mechanical. A mechanical system converts your entry rules into scans that software can run automatically across the market, flagging opportunities that meet your criteria. This approach reduces bias and ensures consistency. Whether you automate fully or still make the final decision manually, the key is that the rules are defined before the trade.",
+          "The first step in building a system is defining its objective. Every system must have a clear purpose. Are you trying to capture long-term trends, swing movements, or short-term price fluctuations? A system without a clear objective will pull you in conflicting directions and lead to inconsistent results.",
+          "Once the objective is clear, you define market selection. This means deciding which instruments and which part of the market the system will operate in. Long-term investors often focus on shares only, benefiting from dividends and long holding periods. Medium-term traders may use shares, CFDs, options, or warrants to capture swing moves. Short-term traders typically focus on highly liquid instruments where speed, volatility, and low transaction costs matter most.",
+          "The final piece is market direction. Some systems are designed to trade long only, especially those focused on long-term investing. Others are designed to operate in both rising and falling markets by trading long and short. This decision affects everything from position sizing to risk management and psychological load.",
+          "A trading system does not need to be complex to be effective. In fact, simpler systems are often easier to execute consistently. What matters is clarity. When your system objective, market selection, and market direction are clearly defined, every trade you take has a reason for existing.",
+          "This chapter marks a turning point. You are no longer just learning about trading — you are designing a framework that you can refine, test, and improve over time. Your system will evolve as your experience grows, but its foundation must be solid and well-documented in your trading plan."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is a trading system?",
+          "answer": "A structured set of rules that defines how and when to trade."
+        },
+        {
+          "question": "Why is having a system important?",
+          "answer": "It removes emotion and ensures consistency."
+        },
+        {
+          "question": "What is the first step in building a trading system?",
+          "answer": "Defining the system’s objective."
+        },
+        {
+          "question": "What does market selection refer to?",
+          "answer": "The instruments and market segments the system trades."
+        },
+        {
+          "question": "Why do short-term traders focus on liquidity?",
+          "answer": "To ensure fast entry and exit with minimal slippage."
+        },
+        {
+          "question": "What is market direction?",
+          "answer": "Whether the system trades long only or both long and short."
+        },
+        {
+          "question": "Can a trading system be simple and still effective?",
+          "answer": "Yes — simplicity often improves consistency and discipline."
+        },
+        {
+          "question": "Why must the system be documented?",
+          "answer": "To ensure repeatable execution and ongoing improvement."
+        }
+      ],
+      "key_points": [
+        "A trading system turns rules into repeatable action",
+        "Systems reduce emotion and guesswork",
+        "Every system needs a clear objective",
+        "Market selection defines where opportunities come from",
+        "Market direction shapes risk and opportunity",
+        "Mechanical systems improve consistency",
+        "Simple systems are easier to follow",
+        "A documented system is the foundation of long-term success"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 18,
+        "title": "The entry",
+        "part": {
+          "title": "Trading plan: system development"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Defining your entry rules is one of the most enjoyable parts of building a trading system, because this is where your plan starts to feel real. The goal is not to find the “perfect” entry every time — the goal is to remove guesswork and create a repeatable process you can execute calmly, without emotion.",
+          "Think of entries like preparing for a long road trip. Before you drive off, you check that the car is in good condition — oil, tyres, fuel, everything. Only after the setup is right do you turn the key and go. Trading works the same way. First, you define the conditions that must be present before a stock is even worth your attention. Then, you define the trigger that tells you “now is the moment to enter.” When both are present, you act — no debating, no hesitation, no emotional bargaining.",
+          "Your entry rules are made up of two parts: ideal set-up criteria and entry triggers. The set-up criteria determine what kind of stock you want to own and what “healthy” looks like. For technical traders, this usually means identifying an uptrend and confirming it through price action, trendlines, moving averages, momentum, volume, and liquidity. You are basically building a checklist that confirms the stock is behaving the way your system requires.",
+          "For fundamental traders, the set-up criteria are based on financial quality and value. Instead of reading charts first, you screen for business strength using numbers like P/E ratio, dividend yield, and liquidity. The objective is to create a watchlist of candidates that match your style and goals.",
+          "Once a stock qualifies for your watchlist, you need a trigger that selects the best moment to enter. Fundamental traders might choose based on stronger dividend yield or better value relative to other candidates. Technical traders often use chart-based triggers such as a breakout to new highs or a retracement entry where price pulls back to a trendline or support and then bounces.",
+          "After the setup and trigger are defined, the final step is placing the order. Position sizing comes first, based on your risk plan and initial stop loss. Once you know how many shares you can buy, you decide how you will enter the market. Many traders avoid entering right at the open because volatility is high as the market processes overnight orders. Waiting 30 minutes to an hour can reduce the chance of being pulled into the emotional rush of the open.",
+          "Market depth can help time your entry by showing the queue of buyers and sellers. If the price feels like it has “run away,” you may wait for it to settle before entering. When placing an order, you typically choose between at-market and at-limit orders. At-market orders execute immediately at the best available price during market hours, while at-limit orders wait until price reaches your specified level, with no guarantee of being filled. The best choice is the one that fits your trading style and supports consistent execution.",
+          "The most important thing is this: once you choose a method, stick to it. Your entry rules are not meant to be perfect — they are meant to be consistent. Consistency is what turns a trading plan into a professional routine."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What are the two parts of entry rules?",
+          "answer": "Ideal set-up criteria and entry triggers."
+        },
+        {
+          "question": "What is the purpose of ideal set-up criteria?",
+          "answer": "To define what conditions must exist before a stock enters your watchlist."
+        },
+        {
+          "question": "What is the purpose of an entry trigger?",
+          "answer": "To define the moment you actually enter a trade."
+        },
+        {
+          "question": "What might a technical trader use as set-up criteria?",
+          "answer": "Uptrend structure, moving averages, momentum, volume, and liquidity."
+        },
+        {
+          "question": "What might a fundamental trader use as set-up criteria?",
+          "answer": "Financial metrics like P/E ratio, dividend yield, and liquidity."
+        },
+        {
+          "question": "What are two common technical entry triggers?",
+          "answer": "Breakout to new highs and retracement bounce off support or trendline."
+        },
+        {
+          "question": "Why do some traders avoid entering at market open?",
+          "answer": "Opening volatility can cause extreme price movement and emotional decisions."
+        },
+        {
+          "question": "What is the difference between at-market and at-limit orders?",
+          "answer": "At-market executes immediately; at-limit waits for a chosen price and may not fill."
+        }
+      ],
+      "key_points": [
+        "Entry rules remove guesswork",
+        "Set-up criteria define what qualifies for a watchlist",
+        "Triggers define when to enter",
+        "Technical set-ups focus on trend health",
+        "Fundamental set-ups focus on financial strength",
+        "Common triggers include breakouts and retracement bounces",
+        "Position sizing comes before order placement",
+        "Consistency matters more than perfect entries"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 19,
+        "title": "Trade management and the exit",
+        "part": {
+          "title": "Trading plan: system development"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Choosing a share is only the beginning of a trade. What truly determines long-term profitability is how you manage the position after entry and how you exit it. Trade management is where discipline is tested, because this is where emotion, fear, and greed are most likely to interfere with good decision-making.",
+          "Even profitable trades can fail to deliver their full potential if they are managed poorly. Cutting winners too early or ignoring exit rules can be just as damaging as letting losses run. That is why every trading system must include a clear, well-defined stop-loss management and exit strategy — and why those rules must be followed without exception.",
+          "Exit rules exist for the same reason traffic rules exist: safety. You may occasionally break them and get away with it, but eventually the consequences catch up. In trading, failing to exit when conditions turn unfavourable can result in losses far larger than planned and undo months of good performance.",
+          "Effective trade management starts with stop losses. You already learned about initial stops, breakeven stops, and trailing profit stops earlier. Now the task is to decide exactly how you will use them together. You need to know when the initial stop is set, when it is moved to breakeven, and when it becomes a trailing profit stop that protects gains rather than capital.",
+          "Beyond stops, you must define exit criteria — the signals that warn a trade is becoming unhealthy. For technical traders, this usually means a breakdown in trend structure. A healthy uptrend becomes unhealthy when higher highs and higher lows disappear, support levels fail, trendlines break, moving averages roll over, or downside momentum begins to dominate. These signals tell you that the conditions which justified owning the share are no longer present.",
+          "Exiting a trade can be done manually or automatically. Manual exits give you control but require discipline and constant monitoring. Automatic stops remove emotion and ensure action is taken even when you are busy, distracted, or hesitant. Many traders prefer automatic stops because they simplify trade management and reduce psychological pressure.",
+          "Advanced traders may also use pyramiding — adding to winning positions as trends unfold. This technique increases exposure only after a trade has proven itself. Pyramiding must always be done with decreasing risk on each additional entry so that the largest position is the first one. This ensures that risk is controlled and profits, not capital, are being put to work.",
+          "Pyramiding should be rule-based, not impulsive. Traders often add once the initial stop has moved to breakeven or once a trailing profit stop is active. Additional entries are sized smaller and managed using the same exit rules as the original position. Done correctly, pyramiding allows traders to maximise strong trends while still respecting risk limits.",
+          "Trade management is not about perfection. It is about consistency. Once you define your exit rules, stop methods, and pyramiding approach, your job is to follow them. This is what separates traders who survive from those who eventually fail."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What determines long-term profitability more than entries?",
+          "answer": "Trade management and exits."
+        },
+        {
+          "question": "Why are exit rules compared to traffic rules?",
+          "answer": "They exist for safety and must be followed consistently."
+        },
+        {
+          "question": "What is exit criteria?",
+          "answer": "Conditions that signal a trade is becoming unhealthy."
+        },
+        {
+          "question": "What happens when a healthy uptrend becomes unhealthy?",
+          "answer": "Trend structure breaks and exit conditions appear."
+        },
+        {
+          "question": "What is the benefit of automatic stop losses?",
+          "answer": "They remove emotion and ensure exits occur as planned."
+        },
+        {
+          "question": "What is pyramiding?",
+          "answer": "Adding to a winning position as the trend continues."
+        },
+        {
+          "question": "How should risk be handled when pyramiding?",
+          "answer": "Each added position should use less risk than the previous one."
+        },
+        {
+          "question": "Why must trade management rules be documented?",
+          "answer": "To ensure disciplined, repeatable execution."
+        }
+      ],
+      "key_points": [
+        "Trade management determines profitability",
+        "Exit rules protect capital and profits",
+        "Healthy trades must stay healthy to be held",
+        "Exit criteria signal when conditions change",
+        "Automatic stops reduce emotional errors",
+        "Pyramiding builds winners, not losers",
+        "Additional entries must use smaller risk",
+        "Consistency in exits separates winners from failures"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 20,
+        "title": "Trading routine",
+        "part": {
+          "title": "Trading plan: system development"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Trading success is built on routine. Just as daily habits structure your personal life, a consistent trading routine structures your decision-making and removes unnecessary stress. Without a routine, trading becomes reactive and chaotic. With a routine, trading becomes a process you can execute calmly and repeatedly.",
+          "A trading routine defines when you trade and what you do at each stage. It covers activities such as reviewing market conditions, searching for opportunities, placing trades, managing open positions, and evaluating performance. These activities are not optional — they are the operational backbone of your trading business.",
+          "Your routine must match your trading style and lifestyle. Short-term traders may need to engage with the market daily, sometimes for many hours. Medium-term traders often operate on a daily or weekly rhythm. Long-term traders may have no daily routine at all, focusing instead on weekly, monthly, or even quarterly reviews. There is no correct frequency — consistency is what matters.",
+          "A core part of any routine is reviewing market activity. This helps you understand the broader environment before committing capital. It may include monitoring international markets, reviewing financial news, analysing global indices, and assessing sector strength. These activities provide context and help you decide whether conditions are favourable for new trades.",
+          "Once the market context is clear, the next step is searching for opportunities. Technical traders may scan charts manually or use software to run automated scans based on entry rules. Fundamental traders may research companies, screen financial metrics, or focus on specific indices or sectors. Promising candidates are added to a watchlist, which must be cleaned regularly to remove stocks that no longer meet your criteria.",
+          "Managing open trades is another essential routine activity. This includes reviewing charts, adjusting stop losses, exiting positions when rules are triggered, and updating records. Accurate record keeping allows you to track performance, manage risk, and learn from past decisions. Whether you use spreadsheets, software, or a trading diary, documentation is non-negotiable.",
+          "Beyond trading itself, you must manage the business side of trading. This includes reviewing available capital, monitoring portfolio heat, balancing accounts, backing up records, evaluating performance against benchmarks, and reviewing your trading plan. These activities ensure your trading operation remains organised, compliant, and aligned with your goals.",
+          "Finally, continuous improvement must be part of your routine. Markets evolve, and traders must evolve with them. Regular learning, reviewing results, and refining your plan ensure that your skills grow alongside your experience.",
+          "Your trading routine will not be perfect from day one. It will evolve as you learn what works best for you. What matters is documenting it, following it, and improving it over time."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why is a trading routine important?",
+          "answer": "It creates structure, consistency, and disciplined execution."
+        },
+        {
+          "question": "Should all traders have the same routine?",
+          "answer": "No — routines must match trading style and lifestyle."
+        },
+        {
+          "question": "What is a core purpose of reviewing market activity?",
+          "answer": "To understand conditions before opening new trades."
+        },
+        {
+          "question": "What is a watchlist used for?",
+          "answer": "Tracking potential trading opportunities."
+        },
+        {
+          "question": "Why must watchlists be cleaned regularly?",
+          "answer": "To remove stocks that no longer meet trading criteria."
+        },
+        {
+          "question": "What is included in managing open trades?",
+          "answer": "Reviewing charts, adjusting stops, exiting trades, and updating records."
+        },
+        {
+          "question": "Why is record keeping important?",
+          "answer": "It enables performance analysis and risk control."
+        },
+        {
+          "question": "Does a trading routine stay fixed forever?",
+          "answer": "No — it evolves as the trader gains experience."
+        }
+      ],
+      "key_points": [
+        "Routine turns trading into a process",
+        "Consistency reduces emotional decisions",
+        "Routine must match trading style",
+        "Market review provides context",
+        "Watchlists focus opportunity",
+        "Trade management requires regular review",
+        "Business tasks support long-term success",
+        "Continuous improvement is essential"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 21,
+        "title": "Trading performance and analysis",
+        "part": {
+          "title": "Trading plan: analysis and backup"
+        }
+      },
+      "lesson": {
+        "content": [
+          "Trading is a business, and like any business, it must be measured and reviewed to improve. Your bank balance alone does not tell the full story of how well you are trading. Only by keeping accurate records and analysing performance can you understand what is really happening in your trading and whether changes are needed.",
+          "Trade evaluation happens at two levels. The first is reviewing each trade after it is closed. The second is reviewing your overall performance after a meaningful sample of trades. This might be monthly for short-term traders, quarterly for medium-term traders, or yearly for long-term traders. Both levels are essential — one helps you fix habits, the other helps you assess whether your system actually works.",
+          "After every trade, you should analyse both the technical and psychological aspects of your decision-making. Ask whether the trade met your rules, whether the entry and stop placement were appropriate, how well the trade was managed, and how emotions influenced your actions. Your own trades are your best teacher. Patterns will emerge over time, revealing strengths to build on and weaknesses to correct.",
+          "A key goal of post-trade analysis is identifying bad habits early. These may include cutting winners short, hesitating to exit at stops, widening stops in hope, or becoming anxious during trades. Emotional awareness is critical — tracking how you felt before, during, and after trades helps you understand why mistakes occur and how to prevent them in the future. Traders must train themselves just like athletes train their bodies.",
+          "To evaluate overall performance, you need a statistically meaningful sample of trades. Reviewing at least 20 trades helps determine whether you have an edge. Trading is a probability game — even good systems experience losses. What matters is whether the combination of win rate and win size produces positive results over time.",
+          "Several key metrics reveal how well you are trading. Profitability shows whether you are making money relative to your capital. Reliability measures how often you win compared to how often you lose. Win-to-loss size reveals whether your winners are larger than your losers — one of the most important indicators of long-term success.",
+          "Average hold time provides insight into your true trading style and behaviour. By comparing how long you hold winning trades versus losing trades, you can see whether you are letting profits run and cutting losses short. A healthy system usually shows longer hold times for winners and shorter hold times for losers.",
+          "An equity curve offers a visual snapshot of your progress over time. A steadily rising equity curve indicates consistency, while sharp drops or prolonged flat periods signal issues that need attention. Equity curves help traders stay focused on long-term progress rather than individual trade outcomes.",
+          "Trading costs must also be considered. Brokerage and transaction costs reduce profitability, especially for highly active traders. These costs are part of the business and should always be included in performance analysis. Ignoring them gives a distorted view of results.",
+          "Accurate record keeping makes all of this possible. A trading diary or spreadsheet should document the reasons for entry and exit, stop placement, risk percentage, position size, trade management decisions, and emotional state. With enough data, your results will speak clearly — they will tell you whether you are improving, stagnating, or heading in the wrong direction."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why is record keeping essential in trading?",
+          "answer": "It allows accurate performance analysis and improvement."
+        },
+        {
+          "question": "When should trades be analysed?",
+          "answer": "After each trade and after a meaningful group of trades."
+        },
+        {
+          "question": "Why is reviewing at least 20 trades important?",
+          "answer": "It provides a statistically meaningful sample to assess performance."
+        },
+        {
+          "question": "What does reliability measure?",
+          "answer": "The percentage of winning trades versus losing trades."
+        },
+        {
+          "question": "Why is win-to-loss size more important than win rate?",
+          "answer": "Large winners and small losses drive long-term profitability."
+        },
+        {
+          "question": "What does average hold time reveal?",
+          "answer": "How long trades are held and whether profits are allowed to run."
+        },
+        {
+          "question": "What is an equity curve?",
+          "answer": "A chart showing changes in trading equity over time."
+        },
+        {
+          "question": "Why must trading costs be tracked?",
+          "answer": "Brokerage and fees directly affect profitability."
+        }
+      ],
+      "key_points": [
+        "Trading performance must be measured, not guessed",
+        "Post-trade analysis builds self-awareness",
+        "At least 20 trades are needed for meaningful evaluation",
+        "Win size matters more than win rate",
+        "Average hold time reveals trading behaviour",
+        "Equity curves show long-term consistency",
+        "Trading costs reduce real returns",
+        "Good records support continuous improvement"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 22,
+        "title": "Contingency plans",
+        "part": {
+          "title": "Trading plan: analysis and backup"
+        }
+      },
+      "lesson": {
+        "content": [
+          "A strong trading plan isn’t just about what you do when everything goes right — it’s about what you do when everything goes wrong. One of the keys to long-term survival is being prepared for unexpected events and having a contingency plan that protects you when normal systems fail.",
+          "In trading, “unexpected” isn’t rare. Computers crash. Internet connections drop. Broker platforms go offline. Power outages happen at the worst time. Markets can gap violently or crash without warning. If you don’t pre-plan your response, you will be forced to improvise under stress — and that’s exactly when expensive mistakes happen.",
+          "A good contingency plan starts with mindset. You assume worst-case scenarios can happen and you mentally rehearse what you will do, like a fire drill. The goal is to make your response automatic so you don’t freeze or panic when speed matters.",
+          "The first practical step is backing up everything. If your trading records, scans, spreadsheets, and trading plan live on your computer, then your computer is part of your trading business infrastructure. Regular backups protect you from loss due to theft, hardware failure, viruses, or storms. Backups should be stored separately from your main device, because keeping them together defeats the purpose.",
+          "Next, plan for loss of access. If your broker’s website goes down, you need a phone-based backup method to place or exit trades. Keep broker contact numbers accessible at all times. If your internet fails, have an alternative connection option ready — a backup plan that you can activate immediately rather than scrambling during an emergency.",
+          "Power outages are another hidden danger. The risk isn’t just “I can’t trade today.” The real problem is being caught mid-action — entering a trade but not being able to set stops, adjust risk, or exit. This is why having reliable communication and basic backup power can matter. A simple approach is to ensure you have at least one method of communication that still works without electricity and a way to keep devices powered in emergencies.",
+          "Finally, your plan must cover market shocks and crashes. Large overnight drops can trigger panic selling and fast declines. While no one can predict every crash, traders can reduce damage by managing risk continuously: using stop losses, limiting portfolio heat, and monitoring broader market trends. Stops remain the lifeline — they enforce exits when conditions turn dangerous, even when emotions are high.",
+          "A contingency plan does not prevent emergencies. It prevents emergencies from turning into account-ending events. The goal is resilience: keep risk controlled, maintain the ability to act, and protect capital no matter what the market — or your technology — throws at you."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "Why is a contingency plan important in trading?",
+          "answer": "It prepares you to respond safely to unexpected failures and shocks."
+        },
+        {
+          "question": "What is the purpose of mentally rehearsing worst-case scenarios?",
+          "answer": "To reduce panic and make responses automatic under stress."
+        },
+        {
+          "question": "Why should trading records be backed up regularly?",
+          "answer": "To protect against theft, crashes, viruses, and hardware failure."
+        },
+        {
+          "question": "Where should backups be stored?",
+          "answer": "In a separate location from the main computer."
+        },
+        {
+          "question": "What is a key backup method if a broker platform goes down?",
+          "answer": "The ability to place trades by phone."
+        },
+        {
+          "question": "What is the risk of an internet or power outage mid-trade?",
+          "answer": "You may be unable to set stops, manage risk, or exit."
+        },
+        {
+          "question": "What protects you most during a market crash?",
+          "answer": "Stop losses and controlled portfolio heat."
+        },
+        {
+          "question": "What is the goal of a contingency plan?",
+          "answer": "Resilience — protecting capital and maintaining control."
+        }
+      ],
+      "key_points": [
+        "Unexpected events will happen",
+        "Plan responses like a fire drill",
+        "Back up files regularly and store separately",
+        "Have a phone-based broker backup",
+        "Prepare for internet and power failures",
+        "Avoid being caught without stop protection",
+        "Stop losses are the lifeline in crashes",
+        "Portfolio heat prevents overexposure"
+      ]
+    },
+    {
+      "chapter": {
+        "number": 23,
+        "title": "Personal rules",
+        "part": {
+          "title": "Trading plan: analysis and backup"
+        }
+      },
+      "lesson": {
+        "content": [
+          "The final page of your trading plan is not about indicators, systems, or numbers — it is about you. This is where your personal trading rules live. These rules exist to protect you from your own weaknesses and to reinforce the mindset required to succeed in the markets.",
+          "No matter how well-designed your trading system is, it will fail if you do not follow it. Personal rules act as internal guardrails. They remind you how to behave when emotions rise, discipline slips, or impatience creeps in. Over time, these rules evolve alongside you, reflecting your growth as a trader.",
+          "Many traders discover that their biggest enemy is not the market, but themselves. Impatience, fear of missing out, fear of losses, fear of success, and overconfidence all lead to poor decisions. Personal rules help neutralise these tendencies by creating clear behavioural standards that you commit to following.",
+          "These rules reinforce the core truths of trading: losses are inevitable, patience is essential, trends matter, and consistency beats intensity. They also remind you to act professionally — to trade like a business owner rather than a gambler. When you hesitate on signals, override stops, or chase trades emotionally, these rules bring you back to centre.",
+          "Personal rules also shift your focus away from short-term outcomes. One trade means nothing. What matters is how you execute over hundreds of trades. Winning is not about being right more often — it is about winning bigger than you lose. By internalising this, you stop judging yourself trade by trade and start judging yourself by process.",
+          "Ultimately, this section is deeply personal. You will add to it as you recognise new habits, weaknesses, or breakthroughs. It becomes your private trading code — a reminder of who you want to be in the markets and how you expect yourself to behave under pressure.",
+          "When followed consistently, personal rules turn trading into a craft. They help you stay calm, focused, and professional, even when the market tests you. And over time, they shape you into the kind of trader who survives long enough to succeed."
+        ]
+      },
+      "flashcards": [
+        {
+          "question": "What is the purpose of personal trading rules?",
+          "answer": "To manage behaviour, discipline, and mindset."
+        },
+        {
+          "question": "Why is overriding a trading system dangerous?",
+          "answer": "It introduces emotion and destroys consistency."
+        },
+        {
+          "question": "Why are small losses acceptable in trading?",
+          "answer": "They are a normal cost of staying in the game."
+        },
+        {
+          "question": "Why is patience critical to success?",
+          "answer": "Big moves take time and cannot be forced."
+        },
+        {
+          "question": "Why is win size more important than win rate?",
+          "answer": "Large winners drive long-term profitability."
+        },
+        {
+          "question": "Why shouldn’t trades be judged individually?",
+          "answer": "Trading is a probability game over many trades."
+        },
+        {
+          "question": "What does it mean to “act like a master trader”?",
+          "answer": "Behaving professionally and unemotionally."
+        },
+        {
+          "question": "When should a trader stay out of the market?",
+          "answer": "When conditions or emotions are unfavourable."
+        }
+      ],
+      "key_points": [
+        "Personal rules protect you from yourself",
+        "Never override your trading system",
+        "Patience is essential",
+        "Losses are part of the process",
+        "Follow the trend",
+        "Avoid overtrading",
+        "Let winners run",
+        "Trade professionally and consistently"
+      ]
+    }
+  ]
+}

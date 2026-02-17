@@ -1,6 +1,7 @@
 # Virtual environment
 venv/
 __pycache__/
+node_modules/
 
 # Environment variables
 .env
