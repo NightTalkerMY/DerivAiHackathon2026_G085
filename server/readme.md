@@ -1,9 +1,3 @@
-
-### File 2: The Backend README
-**Location:** Create a new file at `backend_Hackathon/server/README.md`
-*(This explains your Python code)*
-
-```markdown
 # Dojo Backend (The Brain)
 
 The backend is not just a CRUD API; it is an **Event-Driven Intelligence System**. It uses a "Synthesizer" pattern to translate raw user actions (like losing a trade) into semantic search queries for the RAG engine.

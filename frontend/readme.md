@@ -1,9 +1,4 @@
 
-### File 3: The Frontend README
-**Location:** Create a new file at `backend_Hackathon/frontend/README.md`
-*(This explains your React code)*
-
-```markdown
 # Dojo Frontend (The Interface)
 
 The frontend is a modern **React + Vite** application built for speed and real-time feedback. It connects to the backend via REST APIs and WebSockets (simulated) to provide instant "Scolding" or "Praise" from the AI.
