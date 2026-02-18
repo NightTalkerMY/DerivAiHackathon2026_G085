@@ -11,6 +11,13 @@ Unlike standard chatbots, the Dojo features a **Proactive "Sensei" Persona** tha
 
 ---
 
+## 🎥 See it in Action
+
+<video src="https://github.com/user-attachments/assets/e0524a43-3538-420b-b066-c46d84d6c3b8" controls="controls" style="max-width: 100%;">
+</video>
+
+---
+
 ## 🚀 Quick Start Guide
 
 To run the full system, you need to open **two separate terminals**.
@@ -71,3 +78,5 @@ A FastAPI event engine that manages the AI logic and user state.
 ---
 
 *Created for the Deriv AI Hackathon 2026 by Team 085.*
+
+```
