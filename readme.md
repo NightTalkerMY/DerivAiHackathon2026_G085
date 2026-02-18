@@ -1,16 +1,16 @@
 # The Adaptive Trading Dojo (V2)
 
-![Gemini](https://img.shields.io/badge/AI_Core-Gemini_2.0_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![Groq](https://img.shields.io/badge/Synthesizer-GPT_OSS_120B-f55036?style=for-the-badge&logo=groq&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Gemini](https://img.shields.io/badge/AI_Core-Gemini_2.5_Flash-4285F4?style=flat&logo=google&logoColor=white)
+![Groq](https://img.shields.io/badge/Synthesizer-GPT_OSS_120B-f55036?style=flat&logo=groq&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat&logo=python&logoColor=white)
 
-![FastAPI](https://img.shields.io/badge/FastAPI-Event_Driven-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-cc2b5e?style=for-the-badge&logo=chroma&logoColor=white)
-![Pydantic](https://img.shields.io/badge/Data_Validation-Pydantic-e92063?style=for-the-badge&logo=pydantic&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Event_Driven-009688?style=flat&logo=fastapi&logoColor=white)
+![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-cc2b5e?style=flat&logo=chroma&logoColor=white)
+![Pydantic](https://img.shields.io/badge/Data_Validation-Pydantic-e92063?style=flat&logo=pydantic&logoColor=white)
 
-![React](https://img.shields.io/badge/Frontend-React_18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Build_Tool-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Styling-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![React](https://img.shields.io/badge/Frontend-React_18-61DAFB?style=flat&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Build_Tool-Vite-646CFF?style=flat&logo=vite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Styling-Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
 
 **The Adaptive Trading Dojo** is a full-stack AI education platform designed to bridge the gap between *theory* and *execution*.
 
