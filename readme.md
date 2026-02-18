@@ -71,7 +71,3 @@ A FastAPI event engine that manages the AI logic and user state.
 ---
 
 *Created for the Deriv AI Hackathon 2026 by Team 085.*
-
-```
-
----
