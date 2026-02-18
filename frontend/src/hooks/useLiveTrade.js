@@ -25,7 +25,6 @@ export const useLiveTrade = (userId = "william", initialAsset = "BINANCE:BTCUSDT
   const [asset, setAsset] = useState(initialAsset);
   
   const [tickers, setTickers] = useState({});
-  // We store live ticks for each asset here
   const [allTicks, setAllTicks] = useState({}); 
   
   const [activeTrade, setActiveTrade] = useState(null);
@@ -72,7 +71,6 @@ export const useLiveTrade = (userId = "william", initialAsset = "BINANCE:BTCUSDT
   }, []);
 
   // --- 2. GRAPH THROTTLER ---
-  // Updates the graph state once per second based on buffered websocket data
   useEffect(() => {
     const intervalId = setInterval(() => {
       const newPrices = latestPricesRef.current;
@@ -84,7 +82,7 @@ export const useLiveTrade = (userId = "william", initialAsset = "BINANCE:BTCUSDT
         Object.entries(newPrices).forEach(([symbol, price]) => {
             const newTick = { time: Date.now(), price: price };
             const currentHistory = nextAllTicks[symbol] || [];
-            // Keep last 100 points of live data
+            // Keep last 100 points
             nextAllTicks[symbol] = [...currentHistory, newTick].slice(-100);
         });
         
@@ -115,39 +113,40 @@ export const useLiveTrade = (userId = "william", initialAsset = "BINANCE:BTCUSDT
 
   // START TRADE
   const startTrade = useCallback(async (tradeData) => {
-    setActiveTrade({ ...tradeData, openTime: Date.now() / 1000 });
-    
-    try {
-        const response = await fetch(`${BACKEND_API_URL}/trade/open`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user_id: userId,
-                asset: tradeData.asset,
-                side: tradeData.side,
-                volume: tradeData.volume
-            })
-        });
+      setActiveTrade({ ...tradeData, openTime: Date.now() / 1000 });
+      
+      try {
+          const response = await fetch(`${BACKEND_API_URL}/trade/open`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                  user_id: userId,
+                  asset: tradeData.asset,
+                  side: tradeData.side,
+                  volume: tradeData.volume
+              })
+          });
 
-        if (response.ok) {
-            const data = await response.json();
-            if (data.ai_overlay_message) {
-                dispatchToShifuChat(`**Risk Analysis**\n${data.ai_overlay_message}`);
-            }
-        }
-    } catch (err) {
-        console.error("Failed to fetch pre-trade analysis:", err);
-    }
-    
-    dispatchDashboardUpdate();
-  }, [userId]);
+          if (response.ok) {
+              const data = await response.json();
+              if (data.ai_overlay_message) {
 
-  // END TRADE (Local cleanup)
+                  dispatchToShifuChat(data.ai_overlay_message);
+              }
+          }
+      } catch (err) {
+          console.error("Failed to fetch pre-trade analysis:", err);
+      }
+      
+      dispatchDashboardUpdate();
+    }, [userId]);
+
+  // END TRADE (Local)
   const endTrade = useCallback(() => {
     setActiveTrade(null);
   }, []);
 
-  // CLOSE TRADE (Backend record)
+  // CLOSE TRADE
   const closeTrade = useCallback(async (exitPrice) => {
     if (!activeTrade) return;
     setIsClosingTrade(true);
@@ -172,13 +171,42 @@ export const useLiveTrade = (userId = "william", initialAsset = "BINANCE:BTCUSDT
         });
 
         const data = await response.json();
-        const pnl = data.analysis ? data.analysis["profit and loss"] : "N/A";
-        const outcome = data.analysis ? data.analysis["trade outcome"] : "Completed";
+        
+        // --- FIX IS HERE ---
+        // Backend sends a Number (e.g. -6.36), not a String. 
+        // We removed .replace('$', '') because it crashes on numbers.
+        const pnl = data.analysis && data.analysis["profit and loss"] !== undefined
+            ? Number(data.analysis["profit and loss"]) 
+            : 0;
 
-        let message = `**Trade Closed**\nOutcome: ${outcome}\nP&L: $${pnl}`;
+        const outcome = data.analysis ? data.analysis["trade outcome"] : "Completed";
+        const isWin = pnl >= 0;
+
+        // --- NEW FORMATTING FOR MODULE CARDS ---
+        
+        // 1. Header Section
+        let message = `### Trade Result: ${outcome}\n`;
+        message += `**Asset:** ${activeTrade.asset} • **P&L:** ${isWin ? '+' : ''}$${pnl.toFixed(2)}\n\n`;
+
+        // 2. Insight Section
         if (data.insight) {
-            message += `\n\n**AI Insight:** ${data.insight}`;
+            message += `> ${data.insight}\n\n`;
         }
+
+        // 3. Recommendation Section
+        if (data.recommendation) {
+            const recs = Array.isArray(data.recommendation) ? data.recommendation : [data.recommendation];
+            
+            if (recs.length > 0) {
+                message += `### Recommended Study\n`;
+                recs.forEach((rec) => {
+                    const module = rec.module || rec.module_name || "General";
+                    const reason = rec.reason || "";
+                    message += `* **${module}**: ${reason}\n`;
+                });
+            }
+        }
+        
         dispatchToShifuChat(message);
         dispatchDashboardUpdate();
         setActiveTrade(null);
@@ -200,12 +228,12 @@ export const useLiveTrade = (userId = "william", initialAsset = "BINANCE:BTCUSDT
     ticker: tickers[asset] || { price: 0, change: 0 }, 
     tickers, 
     ticks: currentAssetTicks, 
-    historicalData: currentAssetTicks, // Just re-use live ticks since we have no history
+    historicalData: currentAssetTicks, // Reuse live data since no history
     isLoadingHistorical: false,
-    loadHistoricalData: async () => {}, // No-op since we removed fetching
+    loadHistoricalData: async () => {}, // Empty function
     activeTrade, 
     startTrade, 
-    endTrade, 
+    endTrade,
     closeTrade,
     currentPnL,
     isClosingTrade,

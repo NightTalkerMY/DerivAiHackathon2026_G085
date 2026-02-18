@@ -265,59 +265,55 @@ async def record_closed_trade(trade: TradePayload):
 
     trade_dict = trade.model_dump()
     user_id = trade_dict.pop("user_id")
-
     trade_dict["trade_id"] = str(uuid.uuid4())[:8]
 
-    # Compute PnL BEFORE saving
+    # Calculate PnL
     delta = trade_dict["exit_price"] - trade_dict["entry_price"]
     if trade_dict["side"].lower() == "sell":
         delta = -delta
-
     trade_dict["profit_and_loss"] = delta * trade_dict["volume"]
 
+    # Save to DB
     db.add_trade(user_id, trade_dict)
-
+    
+    # Update Analytics
     all_trades = db.get_user_trades(user_id)
     fresh_metrics = analyze_batch(all_trades)
-
     db.update_performance(user_id, fresh_metrics)
-
+    
+    # Analyze THIS specific trade
     single_analysis = analyze_single_trade(trade_dict)
 
+    # 1. Generate Synthetic Query & Search RAG (Keep this)
     synthetic_query = ml_models["synthesizer"].generate_synthetic_query(
         event_type="trade_close",
         data=single_analysis
     )
-
     rag_context = ml_models["rag"].search(synthetic_query, top_k_retrieval=1)
 
-    event_desc = (
-        f"User closed trade. Outcome: {single_analysis['trade outcome']}. "
-        f"PnL: {single_analysis['profit and loss']}."
-    )
-
-    summary = ml_models["brain"].generate_dashboard_summary(
-        user_stats=fresh_metrics,
-        rag_context=rag_context,
-        recent_event_desc=event_desc
-    )
-
-    db.update_dashboard_insight(user_id, summary)
-
+    # 2. Get Recommendations FIRST (Move this up)
     valid_chapters = db.get_curriculum_list()
-
     recommendation = ml_models["brain"].recommend_next_module(
         trade_analysis=single_analysis,
         curriculum_list=valid_chapters
     )
+    
+    # 3. NEW: Generate the Insight using the Recommendations + RAG
+    summary = ml_models["brain"].generate_post_trade_insight(
+        trade_analysis=single_analysis,
+        recommendations=recommendation,
+        rag_context=rag_context
+    )
 
+    # 4. Save Updates
     db.update_recommendation(user_id, recommendation)
+    db.update_dashboard_insight(user_id, summary)
 
     return {
         "status": "success",
         "trade_id": trade_dict["trade_id"],
         "analysis": single_analysis,
-        "insight": summary,
+        "insight": summary,          # Now returning the fresh insight
         "recommendation": recommendation
     }
 
@@ -369,16 +365,6 @@ async def complete_chapter(payload: ChapterUpdate):
         event_type="module_complete",
         data={"chapter": payload.chapter_id}
     )
-
-    rag_context = ml_models["rag"].search(synthetic_query, top_k_retrieval=1)
-
-    # summary = ml_models["brain"].generate_dashboard_summary(
-    #     user_stats=metrics,
-    #     rag_context=rag_context,
-    #     recent_event_desc=f"User completed {payload.chapter_id}"
-    # )
-
-    # db.update_dashboard_insight(payload.user_id, summary)
 
     user_profile = db.get_user_profile(payload.user_id)
 

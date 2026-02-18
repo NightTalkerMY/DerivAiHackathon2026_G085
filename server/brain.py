@@ -16,28 +16,6 @@ class SenseiBrain:
         # Load existing history from JSON file
         self.user_memories = self._load_history_from_disk()
 
-    # def analyze_trade_entry(self, asset, side, rag_context):
-    #     """
-    #     Provides immediate feedback when a user OPENS a trade.
-    #     """
-    #     system_instruction = f"""
-    #     You are "The Sensei". The student is about to enter a {side.upper()} position on {asset}.
-        
-    #     REFERENCE INTEL:
-    #     {rag_context['text'] if rag_context else 'General Market Wisdom'}
-        
-    #     TASK:
-    #     Give a 1-sentence warning or tip.
-    #     Speak as a strict mentor watching their student step onto the battlefield.
-    #     Focus on what typically goes wrong with this specific asset or setup.
-    #     """
-        
-    #     response = self.client.chat(
-    #         user_input=f"I am entering {side} on {asset}. What should I watch out for?",
-    #         system_instruction=system_instruction
-    #     )
-    #     return response
-
     def analyze_pre_trade_risk(self, user_history, proposed_trade, rag_context):
         """
         True Generative Analysis.
@@ -126,6 +104,60 @@ class SenseiBrain:
             user_input="I am about to take this trade. Scan for psychological risks.",
             system_instruction=system_instruction
         )
+
+    def generate_post_trade_insight(self, trade_analysis, recommendations, rag_context):
+        """
+        Synthesizes trade results + specific module recommendations + RAG wisdom
+        into a cohesive dashboard insight.
+        """
+        # 1. Format the recommendations for the LLM to read
+        rec_str = "No specific modules assigned."
+        if recommendations:
+            rec_str = "\n".join([f"- Module: {r.get('module')}\n  Reason: {r.get('reason')}" for r in recommendations])
+
+        # 2. Extract RAG text
+        rag_text = "General trading discipline."
+        if rag_context and isinstance(rag_context, list):
+            # Take the top 2 chunks to avoid overloading context
+            rag_text = "\n".join([str(item.get('text', '') or item.get('content', '')) for item in rag_context[:2]])
+
+        # 3. Build the Prompt
+        system_instruction = """
+        You are "The Sensei", a wise and experienced trading mentor.
+        
+        CONTEXT:
+        A student just closed a trade. Based on their performance, you have already assigned them specific learning modules.
+        
+        TASK:
+        Write a **concise, high-impact Insight** (2-3 sentences max) for their dashboard.
+        
+        GUIDELINES:
+        - **Connect the Dots:** Explain *why* the trade result (Win/Loss) leads to the recommended study topic.
+        - **Use the Wisdom:** Incorporate the provided "Context/Wisdom" (RAG) to sound authoritative.
+        - **Tone:** Encouraging but firm. Focus on growth.
+        - **Format:** Plain text. Do NOT use markdown lists or bullet points. Do NOT say "I recommend..." (because the UI already shows the recommendation cards).
+        """
+
+        user_input = f"""
+        --- TRADE DATA ---
+        Outcome: {trade_analysis.get('trade outcome')}
+        PnL: {trade_analysis.get('profit and loss')}
+        Entry Notes: {trade_analysis.get('entry_notes', 'N/A')}
+
+        --- ASSIGNED STUDY MODULES ---
+        {rec_str}
+
+        --- RELEVANT WISDOM (RAG) ---
+        {rag_text}
+        """
+
+        # 4. Generate
+        response = self.client.chat(
+            user_input=user_input,
+            system_instruction=system_instruction
+        )
+        
+        return response.strip()
 
     def recommend_next_module(self, trade_analysis, curriculum_list):
         """

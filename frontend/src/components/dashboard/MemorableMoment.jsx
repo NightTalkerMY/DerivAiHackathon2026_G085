@@ -92,7 +92,7 @@ export function MemorableMoment({ aiInsight, recentHistory, recommendedStudy }) 
           <div className="flex-1">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Recent Activity</p>
             <div className="space-y-1.5">
-              {recentHistory.slice(0, 3).map((trade, i) => {
+              {[...recentHistory].reverse().slice(0, 3).map((trade, i) => {
                 const pnl = calculatePnl(trade);
                 const isWin = pnl >= 0;
                 return (
