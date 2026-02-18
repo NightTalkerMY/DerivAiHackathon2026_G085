@@ -1,7 +1,3 @@
-I apologize for the confusion. I will make this extremely simple.
-
-Below are the **three separate code blocks**. You just need to copy each block into the specific file mentioned above it.
-
 ### File 1: The Root README
 
 **Location:** Create/Overwrite the file at `backend_Hackathon/README.md`
