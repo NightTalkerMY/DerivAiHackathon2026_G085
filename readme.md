@@ -54,14 +54,14 @@ npm run dev
 
 The application is a **Monorepo** split into two distinct domains:
 
-### 1. [Frontend Client](https://www.google.com/search?q=/frontend/README.md)
+### 1. [Frontend Client](https://github.com/NightTalkerMY/DerivAiHackathon2026_G085/blob/main_v2/frontend/readme.md)
 
 A React + Vite application that handles the real-time Dashboard, Trading Terminal, and Chat Interface.
 
 * **Key Tech:** React 18, Tailwind CSS, Recharts (Visualization).
 * **Highlights:** `ShifuChat` (AI Overlay), `CompetencyRadar` (Skill Tracking).
 
-### 2. [Backend Server](https://www.google.com/search?q=/server/README.md)
+### 2. [Backend Server](https://github.com/NightTalkerMY/DerivAiHackathon2026_G085/blob/main_v2/server/readme.md)
 
 A FastAPI event engine that manages the AI logic and user state.
 
