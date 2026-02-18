@@ -1,9 +1,3 @@
-### File 1: The Root README
-
-**Location:** Create/Overwrite the file at `backend_Hackathon/README.md`
-*(This is the main one people see first)*
-
-```markdown
 # The Adaptive Trading Dojo (V2)
 
 ![React](https://img.shields.io/badge/Frontend-React_18-61DAFB?style=flat&logo=react&logoColor=black)
